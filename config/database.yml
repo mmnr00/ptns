@@ -17,7 +17,7 @@ development:
   adapter: postgresql
   encoding: unicode
   #database: kota-fin-dev
-  database: kota-fin-prod
+  database: ptns
   pool: 5
   username: #mus-kidcare-sgp1
   password: #Geometr3
@@ -31,7 +31,7 @@ test:
   adapter: postgresql
   encoding: unicode
   #database: kota-fin-dev
-  database: kota-fin-prod
+  database: ptns
   pool: 5
   username: #mus-kidcare-sgp1
   password: #Geometr3
