@@ -15,6 +15,7 @@ module KidcareTaskaV3
     config.action_dispatch.default_headers = {
     'X-Frame-Options' => 'ALLOWALL'
     }
+    config.assets.initialize_on_precompile = false
     #config.assets.paths << File.join(Rails.root, '/vendor/webarch_core')
     #config.assets.paths << File.join(Rails.root, '/vendor/agency')
     #config.assets.enabled = true
