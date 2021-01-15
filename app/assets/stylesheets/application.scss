@@ -10,7 +10,8 @@
  * files in this directory. Styles in this file should be added after the last require_* statement.
  * It is generally better to create a new file per style scope.
  *
- *= require bootstrap-glyphicons
+ ********** OLD CSS **********
+ * require bootstrap-glyphicons
  Start for WEBARCH
  * require plugins/bootstrapv3/css/bootstrap-theme.min.css
  * require webarch/css/webarch.css 
@@ -20,23 +21,29 @@
  * require font-awesome-new
 
 START PROFILE_CARD (in vendor/stylesheets)
- *= require w3
- *= require font-awesome-min
+ * require w3
+ 
 
  Start for AGENCY
+ 
+ 
+ End for AGENCY
+ 
+ 
+ START FOR ADMIN
+ * require datatables/dataTables.bootstrap4
+ 
+ END FOR ADMIN
+ ********** OLD CSS **********
+
+ IN AGENCY
  *= require bootstrap/css/bootstrap 
+ 
+ *= require css_sb-admin/sb-admin
+ *= require font-awesome-min
  *= require fontawesome-free/css/all
  *= require css_agency/agency
- End for AGENCY
-
  *= require sb-admin-2
- START FOR ADMIN
- *= require datatables/dataTables.bootstrap4
- *= require css_sb-admin/sb-admin
- END FOR ADMIN
-
-
-
  *= require_tree .
  *= require_self
 
