@@ -52,6 +52,9 @@ Rails.application.routes.draw do
   get '/reg_listxls', to: 'ptns_mmbs#reg_listxls'
   get '/regedit/:id', to: 'ptns_mmbs#regedit', as: 'regedit'
   get '/regupd/:id', to: 'ptns_mmbs#regupd'
+  #new ptns
+  get '/checkmmb', to: 'ptns_mmbs#checkmmb'
+  get '/regptns', to: 'ptns_mmbs#regptns'
 
 
   #~FOTOS

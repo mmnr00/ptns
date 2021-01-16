@@ -38,7 +38,9 @@ START PROFILE_CARD (in vendor/stylesheets)
 
  IN AGENCY
  *= require bootstrap/css/bootstrap 
- 
+
+ *= require mmbcard
+ *= require pricing
  *= require css_sb-admin/sb-admin
  *= require font-awesome-min
  *= require fontawesome-free/css/all

@@ -1,6 +1,22 @@
 class PtnsMmbsController < ApplicationController
 	before_action :set_all
 
+	def regptns
+		@ptnsmmb = PtnsMmb.new
+	end
+
+	def checkmmb
+		if params[:id] == "8708"
+			@exs = true
+			txt = "Data anda ada dalam rekod kami"
+			render action: "checkmmb", layout: "eip"
+		else
+			@exs = false
+			txt = "Data anda tiada dalam rekod. Sila daftar dibawah."
+		end
+		flash[:notice] = "#{txt}"
+	end
+
 	def regedit
 		@ptnsmmb = PtnsMmb.find(params[:id])
 	end

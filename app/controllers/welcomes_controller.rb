@@ -46,12 +46,8 @@ class WelcomesController < ApplicationController
 	end
 
 	def index2
-		if params[:anis].present?
-			redirect_to new_tchdetail_path(id: 70, anis: true)
-		elsif params[:anis1].present?
-			redirect_to new_tchdetail_path(id: 66, anis: true)
-		elsif params[:anis2].present?
-			redirect_to new_tchdetail_path(id: 68, anis: true, clse: 1)
+		if params[:sch].present?
+			redirect_to checkmmb_path(id: params[:id])
 		else
 			@teacher = current_teacher
 			@admin = current_admin

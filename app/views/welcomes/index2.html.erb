@@ -4,17 +4,37 @@
     <div class="intro-text">
       <div class="intro-heading text-uppercase">SISTEM KEAHLIAN PTNS</div>
 
+      <% if 1==0 %>
+      <%= form_tag checkmmb_path, method: :post, id: "find_kid" do %>
+
+        <%= hidden_field_tag :id, params[:id], value: params[:id] %>
+        <%= hidden_field_tag :pmt, params[:pmt], value: @pmt_ids %>
+        <%= hidden_field_tag :format, :xlsx %>
+
+        <%= button_tag(type: :submit, class: "btn btn-sm btn-block btn-info", style: "font-size: 14px; border-style: none; font-weight: normal", id: "submit_expense") do %>
+            <i class="fa fa-file-excel"></i> Download List
+        <% end %>
+
+      <% end %><% end %>
+
       <!-- FORM IC -->
       <div class="col-md-10 col-lg-8 col-xl-7 mx-auto" style="margin-top:-30px;margin-bottom:30px">
         <h6 class="">Sila Masukkan No MYKAD anda untuk menyemak keahlian</h6>
         <form>
           <div class="form-row">
-            <div class="col-12 col-md-9 mb-2 mb-md-0">
-              <input type="email" class="form-control form-control-lg" placeholder="cth: 870829355632">
-            </div>
-            <div class="col-12 col-md-3">
-              <button type="submit" class="btn btn-block btn-lg btn-primary">Semak</button>
-            </div>
+
+            <%= form_tag checkmmb_path, method: :get, id: "find_kid" do %>
+              <div class="col-12 col-md-9 mb-2 mb-md-0">
+                <%= text_field_tag :id, params[:id], class: "form-control form-control-sm", placeholder: "cth: 870829342134", required: true, minlenght: 2 %>
+                <%= hidden_field_tag :sch, params[:sch], value: "sdhjdsh876671" %>
+              </div>
+              <div class="col-12 col-md-3">
+                <%= button_tag(type: :submit, class: "btn btn-block btn-sm btn-primary", style: "", id: "submit_expense") do %>
+                    <i class=""></i> Semak
+                <% end %>
+              </div>
+            <% end %>
+
           </div>
         </form>
       </div>

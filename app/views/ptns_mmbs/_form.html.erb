@@ -115,15 +115,9 @@ end
           </div>
         </div>
         <div class="row">
-          <div class="col-sm-3 col-4">
-            <%= f.text_field :ic1 ,class: "form-control", autofocus: true, required: true %>
-          </div> <strong>-</strong>
-          <div class="col-sm-2 col-3">
-           <%= f.text_field :ic2, maxlength: 2, class: "form-control", placeholder: "", autofocus: true %>
-          </div> <strong>-</strong>
-          <div class="col-sm-3 col-4">
-            <%= f.text_field :ic3, maxlength: 4, class: "form-control", placeholder: "", autofocus: true %>
-          </div>         
+          <div class="col-sm-8">
+            <%= f.text_field :ic1 ,class: "form-control", autofocus: true, readonly: true, value: params[:id] %>
+          </div>       
         </div>
       </div>
 
