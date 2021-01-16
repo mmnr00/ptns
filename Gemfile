@@ -8,6 +8,7 @@ gem 'rails', '~> 5.2.1'
 gem 'sass', '~> 3.5.2'
 gem 'roo'
 gem 'devise'
+gem 'rqrcode'
 
 ## for styling
 

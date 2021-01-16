@@ -9,6 +9,17 @@ class PtnsMmbsController < ApplicationController
 		if params[:id] == "8708"
 			@exs = true
 			txt = "Data anda ada dalam rekod kami"
+			#QRCODE
+			qrcode = RQRCode::QRCode.new("http://github.com/")
+			@svg = qrcode.as_svg(
+			  offset: 0,
+			  color: '000',
+			  shape_rendering: 'crispEdges',
+			  module_size: 6,
+			  standalone: true
+			)
+
+
 			render action: "checkmmb", layout: "eip"
 		else
 			@exs = false
