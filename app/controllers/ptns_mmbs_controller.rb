@@ -16,7 +16,7 @@ class PtnsMmbsController < ApplicationController
 			  color: '000',
 			  backgroundcolor: 'white',
 			  shape_rendering: 'crispEdges',
-			  module_size: 10,
+			  module_size: 5,
 			  standalone: true
 			)
 

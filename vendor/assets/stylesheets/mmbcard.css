@@ -32,13 +32,13 @@ p {
 	border-radius: 5px;
 	box-shadow: 0px 10px 20px -10px rgba(0,0,0,0.75);
 	color: #B3B8CD;
-	padding-top: 50px;
+	padding-top: 0px;
 	position: relative;
 	/*width: 1000px;*/
 	max-width: 100%;
 	text-align: center;
-	padding-left: 5px;
-	padding-right: 5px;
+	padding-left: 0px;
+	padding-right: 0px;
 }
 
 .card-container .pro {
@@ -95,4 +95,24 @@ button.primary.ghost {
 	margin: 0 7px 7px 0;
 	padding: 7px;
 }
+
+.header-mmbcard {
+	background-color: #1F1A36;
+	text-align: left;
+	padding: 0px;
+	margin-top: 5px;
+	text-align: left;
+	margin-bottom: 10px;
+	box-shadow: 0px 10px 20px -10px rgba(0,0,0,0.75);
+}
+
+.logo {
+	border: 1px;
+	border-radius: 20%;
+	padding: 7px;
+	align-content: left;
+	margin-left: 10px;
+	display: inline-block;
+}
+
 
