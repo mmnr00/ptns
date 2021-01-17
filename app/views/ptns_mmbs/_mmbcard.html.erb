@@ -24,9 +24,11 @@
   </div>
 </div>
 <br>
-<div class="card-container">
+<div class="card-container" style="background-color:">
   <span class="pro">Aktif</span>
-  <img class="round" src="https://scontent.fkul14-1.fna.fbcdn.net/v/t1.0-9/80656538_10157075859808121_6135909060681138176_n.jpg?_nc_cat=100&ccb=2&_nc_sid=09cbfe&_nc_ohc=mmYvPJjguKIAX_n67nB&_nc_ht=scontent.fkul14-1.fna&oh=049d0adee1553f4c5340edf487124352&oe=6029DA7D" alt="user" weight="200" height="200" />
+  
+    <img width="200" height="200" src="<%= image_path("qrcodes/qr_#{params[:id]}.png") %>" />
+  
   <b><h4 style="text-transform: uppercase; margin-top: 10px">Mohd Mustakhim Bin Noor Rehan</h4></b>
   <h6 style="text-transform: uppercase; margin-top: 10px">PTNS-4412</h6>
   <p>Ahli dari <%= Date.today.strftime('%d-%b-%y') %></p>

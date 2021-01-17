@@ -1,6 +1,6 @@
 
 
-body {
+bodys {
 	background-color: #28223F;
 	font-family: Montserrat, sans-serif;
 	
@@ -9,7 +9,7 @@ body {
 	justify-content: center;
 	flex-direction: column;
 
-	min-height: 10vh;
+	/*min-height: 10vh;*/
 	margin: 0;
 }
 
