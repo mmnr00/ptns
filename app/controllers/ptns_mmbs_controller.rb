@@ -33,7 +33,7 @@ class PtnsMmbsController < ApplicationController
 			  size: 200
 			)
 
-			IO.binwrite("app/assets/images/qrcodes/qr_#{params[:id]}.png", png.to_s)
+			# IO.binwrite("app/assets/images/qrcodes/qr_#{params[:id]}.png", png.to_s)
 
 
 			render action: "checkmmb", layout: "eip"
