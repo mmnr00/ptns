@@ -101,7 +101,7 @@ button.primary.ghost {
 	text-align: left;
 	padding: 0px;
 	margin-top: 5px;
-	text-align: left;
+	text-align: center;
 	margin-bottom: 10px;
 	box-shadow: 0px 10px 20px -10px rgba(0,0,0,0.75);
 }
@@ -111,7 +111,7 @@ button.primary.ghost {
 	border-radius: 20%;
 	padding: 7px;
 	align-content: left;
-	margin-left: 10px;
+	margin-left: 0px;
 	display: inline-block;
 }
 

@@ -10,6 +10,7 @@
 // Read Sprockets README (https://github.com/rails/sprockets#sprockets-directives) for details
 // about supported directives.
 //
+
 //= require jquery
 //= require jquery_ujs
 //= require bootstrap/js/bootstrap.bundle
@@ -18,7 +19,7 @@
 //= require chartkick
 //= require turbolinks
 //= require turbolinks-compatibility
-
+//= require tryclick
 
 
 
@@ -42,6 +43,7 @@
 //= require datatables/dataTables.bootstrap4.min
 //= require_self
 //= require_tree .
+
 
 
 
