@@ -5,6 +5,6 @@ $(document).on('turbolinks:load', function() {
 
 	const btnd = document.querySelector('#tryclick');
 	btnd.addEventListener('click', function (){
-		console.log("berjaya click")
+		console.log("click lag")
 	})
 })
