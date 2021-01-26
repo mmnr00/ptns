@@ -35,13 +35,12 @@ class PtnsMmbsController < ApplicationController
 
 			# IO.binwrite("app/assets/images/qrcodes/qr_#{params[:id]}.png", png.to_s)
 
-
-			render action: "checkmmb", layout: "eip"
+			flash[:notice] = txt
+			#render action: "checkmmb", layout: "eip"
 		else
 			@exs = false
-			txt = "Data anda tiada dalam rekod. Sila daftar dibawah."
+			flash[:notice] = "Data anda tiada dalam rekod. Sila daftar dibawah."
 		end
-		flash[:notice] = "#{txt}"
 	end
 
 	def regedit

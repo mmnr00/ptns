@@ -2,9 +2,9 @@
 <html lang="en">
 
   <%= render 'layouts/page_head' %>
-  <body id="page-top">
+  <body id="page-tops">
 
-  <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+  <!-- <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
     <div class="container">
       <a class="navbar-brand js-scroll-trigger" href="#page-top">
         <img src="<%= image_path('kidcare_logo/kota_logo_full.png') %>" class="" alt="" data-src="<%= image_path('kidcare_logo/kota_logo_full.png') %>" data-src-retina="<%= image_path('kidcare_logo/kota_logo_full.png') %>" width="50" height="50" />
@@ -15,18 +15,76 @@
         
       </div>
     </div>
-  </nav>
+  </nav> -->
+  <!-- ======= Top Bar ======= -->
+  <section id="topbar" class="d-none d-lg-block">
+    <div class="container clearfix">
+      <div class="contact-info float-left">
+        <i class="fa fa-envelope-o"></i> <a href="mailto:contact@example.com">contact@example.com</a>
+        <i class="fa fa-phone"></i> +1 5589 55488 55
+      </div>
+      <div class="social-links float-right">
+        <a href="#" class="twitter"><i class="fa fa-twitter"></i></a>
+        <a href="#" class="facebook"><i class="fa fa-facebook"></i></a>
+        <a href="#" class="instagram"><i class="fa fa-instagram"></i></a>
+        <a href="#" class="google-plus"><i class="fa fa-google-plus"></i></a>
+        <a href="#" class="linkedin"><i class="fa fa-linkedin"></i></a>
+      </div>
+    </div>
+  </section><!-- End Top Bar-->
 
-      <section class="bg-light">
-        <div class="container">
-          <div class="row">
-            <div class="col-lg-12">
-              <%= render partial: "shared/flash_messages", flash: flash %>
-              <%= yield %>
-            </div>
-          </div>
-        </div>
-      </section>
+  <!-- ======= Header ======= -->
+  <header id="header">
+    <div class="container">
+
+      <div id="logo" class="pull-left">
+        <h1><a href="<%= root_url %>">
+          <img src="<%= image_path('ptns-head.png') %>" width="40" height="40" />
+          PT<span>NS</span>
+        <!-- Uncomment below if you prefer to use an image logo -->
+        <!-- <a href="index.html"><img src="/assets/reveal/logo.png" alt=""></a>-->
+      </div>
+
+      <nav id="nav-menu-container">
+        <ul class="nav-menu">
+          <% if 1==0 %>
+            <li class="menu-active"><a href="index.html">Home</a></li>
+            <li><a href="#about">About Us</a></li>
+            <li><a href="#services">Services</a></li>
+            <li><a href="#portfolio">Portfolio</a></li>
+            <li><a href="#team">Team</a></li>
+            <li class="menu-has-children"><a href="">Drop Down</a>
+              <ul>
+                <li><a href="#">Drop Down 1</a></li>
+                <li><a href="#">Drop Down 3</a></li>
+                <li><a href="#">Drop Down 4</a></li>
+                <li><a href="#">Drop Down 5</a></li>
+              </ul>
+            </li>
+          <% end %>
+          <li>
+            <% current_admin.present? %>
+            <% if current_admin.present? %>
+              <a href="<%= destroy_admin_session_url %>" data-confirm="Adakah anda pasti?" data-method="delete" >Log Keluar</a>
+            <% else %>
+              <a href="<%= admin_index_url %>">Log Masuk</a>
+            <% end %>
+          </li>
+
+        </ul>
+      </nav><!-- #nav-menu-container -->
+    </div>
+  </header><!-- End Header -->
+      <% if @index.present? %>
+        <div class="bg-white">
+
+      <% else %>
+        <div class="container bg-white" style="margin-top: 20px">
+        <%= render partial: "shared/flash_messages", flash: flash %>
+      <% end %>
+        
+        <%= yield %>
+      </div>
 
 
         <%= render 'layouts/page_foot' %>

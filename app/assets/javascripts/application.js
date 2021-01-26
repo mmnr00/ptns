@@ -11,64 +11,33 @@
 // about supported directives.
 //
 
+
 //= require jquery
 //= require jquery_ujs
-//= require bootstrap/js/bootstrap.bundle
+//= require bootstrap.bundle
 //= require activestorage
-//= require Chart.bundle
 //= require chartkick
 //= require turbolinks
 //= require turbolinks-compatibility
-//= require tryclick
 
+// REVEAL
+//= require hoverIntent
+//= require isotope.pkgd
+//= require jquery.sticky
+//= require owl.carousel
+//= require superfish.min
+//= require venobox
+//= require wow
+//= require reveal-js
 
-
-// Start for AGENCY
-//= require js_agency/jqBootstrapValidation
-//= require js_agency/contact_me
-//= require js_agency/agency.min
-// End for AGENCY
-
-//= require js/webarch
+// require js_sb-admin/sb-admin.min
 //= require sb-admin-2
 
-//START FOR ADMIN
-//= require jquery-easing_sb-admin/jquery.easing
-//= require chart.js/Chart.min
-//= require js_sb-admin/sb-admin.min
-//= require js_sb-admin/demo/chart-area-demo
-//END FOR ADMIN
-//= require bootstrap
-//= require datatables/jquery.dataTables.min
-//= require datatables/dataTables.bootstrap4.min
+// require bootstrap
+
 //= require_self
 //= require_tree .
 
-
-
-
-var turbolinks = jQuery.Event('turbolinks:load');
-// $(document).trigger(
-// 	$(document).on('ready turbolinks:load',function(){
-// 	$('.rating-star').click(function(){
-// 		var star = $(this);
-// 		var data_form = $(this).attr('data-form');
-// 		var data_field = $(this).attr('data-field');
-// 		var stars = $(this).attr('data-stars');
-
-// 		for (i=1;i<=5;i++){
-// 			if(i <= stars){
-// 				$('#' + 'rating' + '_' + data_form + '_' + i).removeClass('glyphicon glyphicon-star-empty');
-// 				$('#' + 'rating' + '_' + data_form + '_' + i).addClass('glyphicon glyphicon-star');
-// 			} else {
-// 				$('#' + 'rating' + '_' + data_form + '_' + i).removeClass('glyphicon glyphicon-star');
-// 				$('#' + 'rating' + '_' + data_form + '_' + i).addClass('glyphicon glyphicon-star-empty');
-// 			}
-// 		}
-// 		$('#' + data_field).val(stars);
-// 		$('#' + 'feedback').val(stars);
-// 	});
-// }));
 
 
 

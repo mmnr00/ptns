@@ -1,6 +1,7 @@
 $(document).on('turbolinks:load', function() {
 
 	const musrehan = "Mustakhim Rehan"
+	
 
 
 	const btnd = document.querySelector('#tryclick');

@@ -9,7 +9,7 @@ Bundler.require(*Rails.groups)
 module KidcareTaskaV3
   class Application < Rails::Application
     config.load_defaults 5.2
-    config.assets.paths << Rails.root.join("vendor","assets", "fonts")
+    #config.assets.paths << Rails.root.join("vendor","assets", "fonts")
     config.time_zone = 'Singapore'
     config.active_record.default_timezone = :local
     config.action_dispatch.default_headers = {

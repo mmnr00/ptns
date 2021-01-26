@@ -1,5 +1,6 @@
-
+<% if @admin%>
 <b><%= link_to "CREATE NEW COMMUNITY", taskanew_path, class: "btn btn-sm btn-warning"%></b>
+<% end %>
 <% if @admin_taska.count > 0 %>
   <div class="card mb-3">
     <div class="card-header">

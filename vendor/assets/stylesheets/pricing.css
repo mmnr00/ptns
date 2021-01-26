@@ -22,7 +22,7 @@ section.pricing {
 }
 
 .pricing .card-price {
-  font-size: 3rem;
+  font-size: 2rem;
   margin: 0;
 }
 
@@ -31,7 +31,7 @@ section.pricing {
 }
 
 .pricing ul li {
-  margin-bottom: 1rem;
+  margin-bottom: 0.5rem;
 }
 
 .pricing .text-muted {

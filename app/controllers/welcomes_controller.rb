@@ -10,6 +10,7 @@ class WelcomesController < ApplicationController
 
 	def try_bs
 		@admin = current_admin
+		#render action: "try_bs", layout: "eip"
 	end
 	
 	def cikgu_anis
@@ -46,6 +47,7 @@ class WelcomesController < ApplicationController
 	end
 
 	def index2
+		@index = true
 		if params[:sch].present?
 			redirect_to checkmmb_path(id: params[:id])
 		else
@@ -53,7 +55,7 @@ class WelcomesController < ApplicationController
 			@admin = current_admin
 			@owner = current_owner
 			@parent = current_parent
-			render action: "index2", layout: "homepage2"
+			#render action: "index2", layout: "homepage2"
 		end
 		
 	end
