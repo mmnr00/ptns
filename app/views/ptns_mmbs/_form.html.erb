@@ -1,33 +1,7 @@
-<% 
-
-if tp == "kprm" 
-  jenis = ["PERMOHONAN BARU",
-          "PEMBAHARUAN"] 
-  kp = "NO KAD PENGENALAN/PASSPORT"
-  abai = "ABAIKAN RUANGAN DIBAWAH JIKA ANDA TIDAK BEKERJA"
-  name_ts = "NAMA"
-  syk = "/SYARIKAT"
-  stat_ts = ["TASKA/PJKK BERDAFTAR", "TASKA/PJKK DALAM PROSES", "TASKA/PJKK TIDAK BERDAFTAR", "LAIN-LAIN"]
-  jaw = ["Pengusaha/Pengerusi", "Pengurus/Penyelia","Pengasuh Di Rumah/TASKA","Pelajar", "Ibu-Bapa"]
-elsif tp == "ptns" 
-  jenis = ["KEMASKINI MAKLUMAT SAHAJA",
-          "AHLI BIASA BAHARU(RM 30 setahun termasuk RM 10 yuran pendaftaran)", 
-          "AHLI INSTITUSI BAHARU(RM 60 setahun termasuk RM 10 yuran pendaftaran)", 
-          "MEMPERBAHARUI KEAHLIAN BIASA(RM 20 setahun)",
-          "MEMPERBAHARUI KEAHLIAN INSTITUSI(RM 50 setahun)"] 
-  kp = "NO KAD PENGENALAN"
-  abai ="ABAIKAN RUANGAN DIBAWAH JIKA ANDA TIDAK BEKERJA/MEMILIKI TASKA/PJKK"
-  name_ts = ""
-  syk = ""
-  stat_ts = ["BERDAFTAR", "DALAM PROSES", "TIDAK BERDAFTAR"]
-  jaw = ["Pengusaha/Pengerusi", "Pengurus/Penyelia", "Pengasuh"]
-end 
-
- %>
 
 
-<div class='row'>
-  <div class='col-lg-8 col-12'>
+<div class='container bg-light'>
+  <div class='col-lg-12 col-12'>
     <%= form_for(@ptnsmmb, :html => {multipart: true, class: "form-horizontal", role: "form"}) do |f| %>
 
       <div class="form-group"> <!-- name -->
@@ -38,10 +12,26 @@ end
         </div>
         <div class="row">
           <div class="col-sm-8 col-12">
-            <%= f.text_field :name, class: "form-control", placeholder: "SEPERTI KAD PENGENALAN", autofocus: true, required: true %>
+            <%= f.text_field :name, class: "form-control", placeholder: "Seperti Kad Pengenalan", autofocus: true, required: true %>
           </div>
         </div>
       </div>
+
+      <!-- IC -->
+      <div class="form-group"> 
+        <div class="row">
+          <div class="control-label col-sm-8">
+            <strong>NO KAD PENGENALAN</strong>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-8 col-12">
+            <%= f.text_field :ic1, class: "form-control", placeholder: "YOUR FULL NAME AS PER IC", autofocus: true, readonly: true, value: params[:id] %>
+          </div>
+        </div>
+      </div>
+
+      
 
       <!-- DOB -->
       <div class="form-group"> 
@@ -52,12 +42,7 @@ end
         </div>
         <div class="row">
           <div class="col-sm-8 col-12">
-            <%= f.date_select :dob, 
-                              {order:[:day, :month, :year],
-                              prompt: { day: 'HARI', month: 'BULAN', year: 'TAHUN' },
-                              start_year: 1930,
-                              selected: @ptnsmmb.dob}, 
-                              {required: true} %>
+            <%= f.date_field :dob, selected: @ptnsmmb.dob %>
           </div>
         </div>
       </div>
@@ -71,23 +56,13 @@ end
         </div>
         <div class="row">
           <div class="col-sm-8 col-12">
-            <% image = @ptnsmmb.fotos.where(foto_name: "PTNS MMB").first %>
-            <% if image.present? %>
-              <%= image_tag(image.picture.url, size: "200x200") if image.picture? %>
-                <div class="row">
-                <div class="col-sm-8 col-5">
-                  <strong><%= link_to "EDIT", edit_foto_path(image.id), class: "btn btn-sm btn-success active" %></strong>
+            <%= f.fields_for :fotos do |h| %>
+              <div class="row">
+                <div class="col-sm-8 col-8">
+                  <%= h.hidden_field :foto_name, value: "PTNS MMB" %>
+                  <%= h.file_field :picture, accept: 'image/jpeg,image/gif,image/png' %>
                 </div>
-                </div>  
-            <% else %>
-              <%= f.fields_for :fotos do |h| %>
-                <div class="row">
-                  <div class="col-sm-8 col-8">
-                    <%= h.hidden_field :foto_name, value: "PTNS MMB" %>
-                    <%= h.file_field :picture, accept: 'image/jpeg,image/gif,image/png' %>
-                  </div>
-                </div>
-              <% end %>
+              </div>
             <% end %>
           </div>
         </div>
@@ -107,220 +82,6 @@ end
           </div>
         </div>
 
-      <!-- IC -->
-      <div class="form-group"> 
-        <div class="row">
-          <div class="control-label col-sm-8">
-            <strong><%= kp %></strong>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-sm-8">
-            <%= f.text_field :ic1 ,class: "form-control", autofocus: true, readonly: true, value: params[:id] %>
-          </div>       
-        </div>
-      </div>
-
-      <!-- MAIN PHONE -->
-      <div class="form-group"> 
-        <div class="row">
-          <div class="control-label col-sm-8">
-            <strong>NO TELEFON ANDA</strong>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-sm-2 col-3">
-           <%= f.text_field :ph1, maxlength: 3, class: "form-control", placeholder: "", autofocus: true, required: true %>
-          </div> <strong>-</strong>
-          <div class="col-sm-3 col-4">
-            <%= f.text_field :ph2, maxlength: 8, class: "form-control", placeholder: "", autofocus: true, required: true %>
-          </div>      
-        </div>
-      </div>
-
-      <!-- HIGHEST EDUCATION-->
-      <div class="form-group"> 
-        <div class="row">
-          <div class="control-label col-sm-8">
-            <strong>TAHAP PENDIDIKAN</strong>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-sm-8 col-8">
-            <%= f.select :edu, options_for_select(["PHD", 
-                                                  "Master", 
-                                                  "Degree",
-                                                  "Diploma/STPM",
-                                                  "SPM/SPMV/MCE/O-Level",
-                                                  "Sijil Kemahiran",
-                                                  "Others"
-                                                  ], 
-                                                  selected: @ptnsmmb.edu), 
-            {include_blank: "SILA PILIH"}, {required: true} %>
-          </div>
-        </div>
-      </div>
-
-      <!-- MEMBERSHIP TYPE-->
-      
-      <div class="form-group"> 
-        <div class="row">
-          <div class="control-label col-sm-8">
-            <strong>JENIS KEAHLIAN</strong>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-sm-8 col-8">
-            <%= f.select :mmb, 
-            options_for_select(
-            jenis, 
-            selected: @ptnsmmb.mmb), 
-            {include_blank: "SILA PILIH"}, {required: true} %>
-          </div>
-        </div>
-      </div>
-
-      <!-- ADDRESS-->
-      <div class="form-group"> 
-        <div class="row">
-          <div class="control-label col-sm-8">
-            <strong>ALAMAT KEDIAMAN ANDA</strong>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-sm-8 col-12">
-           <%= f.text_field :add1, class: "form-control", autofocus: true, required: true %> <font size="2">&nbsp</font>
-          </div>
-          <div class="col-sm-8 col-12">
-           <%= f.text_field :add2, class: "form-control", autofocus: true %> <font size="2">&nbsp</font>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-sm-3 col-6">
-           <%= f.text_field :city, class: "form-control", autofocus: true, required: true %> <font size="2"> Bandar </font>
-          </div>
-          <div class="col-sm-3 col-5">
-           <%= f.text_field :state, class: "form-control", autofocus: true, required: true %> <font size="2"> Negeri </font>
-          </div>
-          <div class="col-sm-2 col-4">
-           <%= f.number_field :postcode, class: "form-control", autofocus: true, required: true %> <font size="2"> Poskod </font>
-          </div>
-        </div>
-      </div>
-
-      <br><div class="col-sm-10" style="background-color:green">
-        <font color="white"><h6><%= abai %></h6></font>
-      </div><br>
-
-      <!-- TASKA DETAILS -->
-      <!-- taska name -->
-      <div class="form-group"> 
-        <div class="row">
-          <div class="control-label col-sm-8">
-            <strong><%= name_ts %> TASKA/PJKK<%= syk %></strong>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-sm-8 col-12">
-            <%= f.text_field :ts_name, class: "form-control", autofocus: true %>
-          </div>
-        </div>
-      </div>
-
-      <!-- taska owner name -->
-      <div class="form-group"> 
-        <div class="row">
-          <div class="control-label col-sm-8">
-            <strong>ORANG YANG BOLEH DIHUBUNGI</strong>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-sm-8 col-12">
-            <%= f.text_field :ts_owner, class: "form-control", autofocus: true %>
-          </div>
-        </div>
-      </div>
-
-      <!-- Taska PHONE-->
-      <div class="form-group"> 
-        <div class="row">
-          <div class="control-label col-sm-8">
-            <strong>NO TELEFON TASKA/PJKK<%= syk %></strong>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-sm-2 col-3">
-           <%= f.text_field  :ts_ph1, maxlength: 3, class: "form-control", autofocus: true %><font size="2"></font> 
-          </div>
-          -
-          <div class="col-sm-3 col-5">
-            <%= f.text_field  :ts_ph2, maxlength: 8, class: "form-control", autofocus: true %><font size="2"></font> 
-          </div>
-        </div>
-      </div>
-
-      <!-- TASKA ADDRESS-->
-      <div class="form-group"> 
-        <div class="row">
-          <div class="control-label col-sm-8">
-            <strong>ALAMAT TASKA/PJKK<%= syk %></strong>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-sm-8 col-12">
-           <%= f.text_field :ts_add1, class: "form-control", autofocus: true %> <font size="2"> &nbsp </font>
-          </div>
-          <div class="col-sm-8 col-12">
-           <%= f.text_field :ts_add2, class: "form-control", autofocus: true %> <font size="2"> &nbsp </font>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-sm-3 col-6">
-           <%= f.text_field :ts_city, class: "form-control", autofocus: true %> <font size="2"> Bandar </font>
-          </div>
-          <div class="col-sm-3 col-5">
-           <%= f.text_field :ts_state, class: "form-control", autofocus: true %> <font size="2"> Negeri </font>
-          </div>
-          <div class="col-sm-2 col-4">
-           <%= f.number_field :ts_postcode, class: "form-control", autofocus: true %> <font size="2"> Poskod </font>
-          </div>
-        </div>
-      </div>
-
-      <!-- TASKA STATUS-->
-      <div class="form-group"> 
-        <div class="row">
-          <div class="control-label col-sm-8">
-            <strong>STATUS TASKA/PJKK<%= syk %></strong>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-sm-8 col-8">
-            <%= f.select :ts_status, options_for_select(stat_ts, 
-                                                      selected: @ptnsmmb.ts_status), 
-            {include_blank: "SILA PILIH"} %>
-          </div>
-        </div>
-      </div>
-
-      <!-- YOUR ROLE-->
-      <div class="form-group"> 
-        <div class="row">
-          <div class="control-label col-sm-8">
-            <strong>JAWATAN ANDA DI TASKA/PJKK<%= syk %></strong>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-sm-8 col-8">
-            <%= f.select :ts_job, options_for_select(jaw, 
-                                                      selected: @ptnsmmb.ts_job), 
-            {include_blank: "SILA PILIH"} %>
-          </div>
-        </div>
-      </div>
-
-      <%= f.hidden_field :tp, value: tp %>
-
 
 
 
@@ -328,7 +89,7 @@ end
       <div class="form-group">
         <div class="row">
           <div class="col-sm-offset-2 col-sm-10 col-4">
-            <%= f.submit :"HANTAR",  class: 'btn btn-primary btn-lg' %>
+            <%= f.submit :"Hantar",  class: 'btn btn-primary btn-sm' %>
           </div>
         </div>
       </div>

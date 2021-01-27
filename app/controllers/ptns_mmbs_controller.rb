@@ -1,8 +1,9 @@
 class PtnsMmbsController < ApplicationController
 	before_action :set_all
 
-	def regptns
+	def daftarahli
 		@ptnsmmb = PtnsMmb.new
+		@fotos = @ptnsmmb.fotos.build
 	end
 
 	def checkmmb

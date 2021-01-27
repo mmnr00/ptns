@@ -54,7 +54,7 @@ Rails.application.routes.draw do
   get '/regupd/:id', to: 'ptns_mmbs#regupd'
   #new ptns
   get '/checkmmb', to: 'ptns_mmbs#checkmmb'
-  get '/regptns', to: 'ptns_mmbs#regptns'
+  get '/daftarahli', to: 'ptns_mmbs#daftarahli'
 
 
   #~FOTOS

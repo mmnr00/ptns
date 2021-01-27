@@ -1,0 +1,11 @@
+<div class="container" style="background-color: #00004c; margin-bottom: 2px; text-align: center; ">
+  <font style="color:white; font-size: 25px; ">Pendaftaran <%= params[:tp] %></font>
+  &nbsp&nbsp&nbsp
+  
+</div>
+
+<%= link_to checkmmb_path(id: params[:id]), class: "badge badge-secondary shadow-sm", style: "font-size: 14px; font-weight: normal; margin-bottom: 10px" do %>
+      <i class="fa fa-arrow-circle-left"></i> Pilih Semula Jenis Keahlian
+  <% end %>
+
+<%= render 'ptns_mmbs/form' %>

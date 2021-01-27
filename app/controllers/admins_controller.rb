@@ -3,10 +3,7 @@ class AdminsController < ApplicationController
 
 	def index
 		@admin = current_admin
-		@admin_taska = @admin.taskas
-		if @admin.taskas.count < 2 && 1==0
-			redirect_to taskashow_path(@admin.taskas.first)
-		end
+		@ptnsmmbs = PtnsMmb.all
 	end
 
 	def index_old1
