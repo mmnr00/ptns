@@ -9,6 +9,8 @@
 
 #$acv_res = ENV['acv_kota'].split(',')
 
+$daerah_ptns = ["Gombak", "Selayang", "Sepang"]
+
 $anisf = [8,46,50,51,54,55,57,60,63,69,71]
 $anis2 = [64,66,73,74,75]
 $anis2f = [65,67,76,77,78]
