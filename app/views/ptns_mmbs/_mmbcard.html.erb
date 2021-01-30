@@ -4,11 +4,22 @@
     
     
     <div class="header-mmbcard">
-      <img class="logo" src="https://scontent.fkul14-1.fna.fbcdn.net/v/t31.0-8/12045798_171505396519695_3354953813825370528_o.jpg?_nc_cat=102&ccb=2&_nc_sid=09cbfe&_nc_ohc=H5PlwnDgoi0AX_Jwjq3&_nc_ht=scontent.fkul14-1.fna&oh=4e8ffb76c316bb9fa03324a4d2bdbb6a&oe=602AC559" alt="user" weight="60" height="60" /><font style="font-size: 25px; color: white; font-family: verdana; text-align: center; padding-left: 5px">Kad Keahlian</font>
+      <img class="logo" src="<%= image_path('ptns-ori.png') %>" alt="user" weight="60" height="60" /><font style="font-size: 25px; color: white; font-family: verdana; text-align: center; padding-left: 5px">Kad Keahlian</font>
     </div>
-    <img class="round" src="https://scontent.fkul14-1.fna.fbcdn.net/v/t1.0-9/80656538_10157075859808121_6135909060681138176_n.jpg?_nc_cat=100&ccb=2&_nc_sid=09cbfe&_nc_ohc=mmYvPJjguKIAX_n67nB&_nc_ht=scontent.fkul14-1.fna&oh=049d0adee1553f4c5340edf487124352&oe=6029DA7D" alt="user" weight="200" height="200" />
-    <b><h4 style="text-transform: uppercase; margin-top: 10px"><%= @mmb.name %></h4></b>
-    <h6 style="text-transform: uppercase; margin-top: 10px"><%= @mmb.mmbid %> (<%= @mmb.mmb %>)</h6>
+    <%
+      foto = @mmb.fotos.last
+      if foto.present? && foto.picture.present?
+        pic = foto.picture.url
+      else
+        pic = image_path('no-foto.png')
+      end
+    %>
+    <img class="round" src="<%= pic %>" alt="user" weight="150" height="150" />
+
+    <div style="background-color: #bfbfbf; margin-top: 15px;">
+    <b><h5 style="text-transform: uppercase; color: black"><%= @mmb.name %></h5></b>
+    </div>
+    <h7 style="text-transform: uppercase; margin-top: 10px"><%= @mmb.mmbid %> (<%= @mmb.mmb %>)</h7>
     <p>Ahli dari <%= @mmb.created_at.strftime('%d-%b-%y') %></p>
     <div class="buttons">
       <button class="primary">

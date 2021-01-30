@@ -16,6 +16,8 @@
     addr = "ALAMAT KEDIAMAN ANDA"
   end 
 
+  akf = 1
+
 %>
 
 <div class='container bg-light'>
@@ -51,7 +53,7 @@
       </div>
 
       
-      <% if 1==0 %>
+      <% if 1==akf %>
         <!-- DOB -->
         <div class="form-group"> 
           <div class="row">
@@ -74,7 +76,16 @@
             </div>
           </div>
           <div class="row">
-            <div class="col-sm-8 col-12">
+          <div class="col-sm-8 col-12">
+            <% image = @ptnsmmb.fotos.where(foto_name: "PTNS MMB").first %>
+            <% if image.present? %>
+              <%= image_tag(image.picture.url, size: "200x200") if image.picture? %>
+                <div class="row">
+                <div class="col-sm-8 col-5">
+                  <strong><%= link_to "EDIT", edit_foto_path(image.id), class: "btn btn-sm btn-success active" %></strong>
+                </div>
+                </div>  
+            <% else %>
               <%= f.fields_for :fotos do |h| %>
                 <div class="row">
                   <div class="col-sm-8 col-8">
@@ -83,9 +94,10 @@
                   </div>
                 </div>
               <% end %>
-            </div>
+            <% end %>
           </div>
         </div>
+      </div>
 
         <!-- EMAIL -->    
         <div class="form-group"> 

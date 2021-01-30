@@ -18,7 +18,7 @@ class PtnsMmbsController < ApplicationController
 			@ptnsmmb.save
 			flash[:notice] = "PENDAFTARAN BERJAYA. TERIMA KASIH. SILA IKUTI ARAHAN SETERUSNYA"
 		end	
-		redirect_to checkmmb_path(id: @ptnsmmb.icf)
+		redirect_to checkmmb_path(icf: @ptnsmmb.icf)
 	end
 
 	def edit
@@ -28,8 +28,8 @@ class PtnsMmbsController < ApplicationController
 	def update
 		@ptnsmmb = PtnsMmb.find(params[:id])
 		if @ptnsmmb.update(ptnsmmb_params)
-			newic="#{@ptnsmmb.ic1}#{@ptnsmmb.ic2}#{@ptnsmmb.ic3}"
-			@ptnsmmb.icf=newic
+			# newic="#{@ptnsmmb.ic1}#{@ptnsmmb.ic2}#{@ptnsmmb.ic3}"
+			# @ptnsmmb.icf=newic
 			@ptnsmmb.save
 			flash[:notice] = "Maklumat anda telah dikemaskini"
 			redirect_to checkmmb_path(icf: @ptnsmmb.icf)

@@ -27,34 +27,38 @@ class FotosController < ApplicationController
 
 
 	def update
-		@tchdetail = @foto.tchdetail
+		# @tchdetail = @foto.tchdetail
 		if @foto.update(foto_params)
-			if @teacher 
-        redirect_to edit_tchdetail_path(@tchdetail, teacher_id: @teacher.id)
-      elsif @parent
-      	@kid = @foto.kid
-      	redirect_to edit_kid_path(@kid)
-      elsif @tchdetail.present? #&& @tchdetail.anis == "true"
-        redirect_to edit_tchdetail_path(@tchdetail, anis: @tchdetail.anis)
-      elsif @admin
-        if @foto.taska.present?
-        	@taska = @foto.taska
-          flash[:success] = "Photo updated"
-        	redirect_to taskaedit_path(@taska, plan: @taska.plan)
-        elsif (cls=@foto.classroom).present?
-          flash[:success] = "Profile Photo updated"
-          redirect_to taskashow_path(cls.taska)
-        elsif @foto.expense.present?
-          @expense = @foto.expense
-          redirect_to edit_expense_path(@expense, tp: @expense.kind)
-        elsif @foto.kid.present?
-          @kid = @foto.kid
-          redirect_to edit_kid_path(@kid)
-        elsif @foto.ptns_mmb.present?
-          @ptns_mmb = @foto.ptns_mmb
-          redirect_to edit_ptns_mmb_path(@ptns_mmb)
-        end
+      if @foto.ptns_mmb.present?
+        @ptns_mmb = @foto.ptns_mmb
+        redirect_to edit_ptns_mmb_path(@ptns_mmb, icf: @ptns_mmb.icf, tp: @ptns_mmb.tp)
       end
+			# if @teacher 
+   #      redirect_to edit_tchdetail_path(@tchdetail, teacher_id: @teacher.id)
+   #    elsif @parent
+   #    	@kid = @foto.kid
+   #    	redirect_to edit_kid_path(@kid)
+   #    elsif @tchdetail.present? #&& @tchdetail.anis == "true"
+   #      redirect_to edit_tchdetail_path(@tchdetail, anis: @tchdetail.anis)
+   #    elsif @admin
+   #      if @foto.taska.present?
+   #      	@taska = @foto.taska
+   #        flash[:success] = "Photo updated"
+   #      	redirect_to taskaedit_path(@taska, plan: @taska.plan)
+   #      elsif (cls=@foto.classroom).present?
+   #        flash[:success] = "Profile Photo updated"
+   #        redirect_to taskashow_path(cls.taska)
+   #      elsif @foto.expense.present?
+   #        @expense = @foto.expense
+   #        redirect_to edit_expense_path(@expense, tp: @expense.kind)
+   #      elsif @foto.kid.present?
+   #        @kid = @foto.kid
+   #        redirect_to edit_kid_path(@kid)
+   #      elsif @foto.ptns_mmb.present?
+   #        @ptns_mmb = @foto.ptns_mmb
+   #        redirect_to edit_ptns_mmb_path(@ptns_mmb)
+   #      end
+   #    end
     else
       render :edit
     end
