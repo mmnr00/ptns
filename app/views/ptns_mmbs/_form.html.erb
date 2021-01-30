@@ -44,122 +44,267 @@
         </div>
         <div class="row">
           <div class="col-sm-8 col-12">
-            <%= f.text_field :ic1, class: "form-control", placeholder: "YOUR FULL NAME AS PER IC", autofocus: true, readonly: true, value: params[:id] %>
+            <%= f.text_field :icf, class: "form-control", placeholder: "YOUR FULL NAME AS PER IC", autofocus: true, readonly: true, value: params[:icf] %>
           </div>
         </div>
         Pastikan No yang Dipaparkan Adalah Tepat
       </div>
 
       
+      <% if 1==0 %>
+        <!-- DOB -->
+        <div class="form-group"> 
+          <div class="row">
+            <div class="control-label col-sm-8">
+              <strong><%= tlhr %></strong>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-8 col-12">
+              <%= f.date_field :dob, selected: @ptnsmmb.dob %>
+            </div>
+          </div>
+        </div>
 
-      <!-- DOB -->
-      <div class="form-group"> 
-        <div class="row">
-          <div class="control-label col-sm-8">
-            <strong><%= tlhr %></strong>
+        <!-- DOB -->
+        <div class="form-group"> 
+          <div class="row">
+            <div class="control-label col-sm-8">
+              <i class="fas fa-cloud-upload-alt"></i><strong><%= pic %></strong>
+            </div>
           </div>
-        </div>
-        <div class="row">
-          <div class="col-sm-8 col-12">
-            <%= f.date_field :dob, selected: @ptnsmmb.dob %>
-          </div>
-        </div>
-      </div>
-
-      <!-- DOB -->
-      <div class="form-group"> 
-        <div class="row">
-          <div class="control-label col-sm-8">
-            <i class="fas fa-cloud-upload-alt"></i><strong><%= pic %></strong>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-sm-8 col-12">
-            <%= f.fields_for :fotos do |h| %>
-              <div class="row">
-                <div class="col-sm-8 col-8">
-                  <%= h.hidden_field :foto_name, value: "PTNS MMB" %>
-                  <%= h.file_field :picture, accept: 'image/jpeg,image/gif,image/png' %>
+          <div class="row">
+            <div class="col-sm-8 col-12">
+              <%= f.fields_for :fotos do |h| %>
+                <div class="row">
+                  <div class="col-sm-8 col-8">
+                    <%= h.hidden_field :foto_name, value: "PTNS MMB" %>
+                    <%= h.file_field :picture, accept: 'image/jpeg,image/gif,image/png' %>
+                  </div>
                 </div>
+              <% end %>
+            </div>
+          </div>
+        </div>
+
+        <!-- EMAIL -->    
+        <div class="form-group"> 
+          <div class="row">
+            <div class="control-label col-sm-8">
+              <strong>EMAIL</strong>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-8 col-12">
+              <%= f.email_field :email, class: "form-control", autofocus: true, required: true %>
+            </div>
+          </div>
+        </div>
+
+        <!-- NO TELEFON -->    
+        <div class="form-group"> 
+          <div class="row">
+            <div class="control-label col-sm-8">
+              <strong>NO TELEFON</strong>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-8 col-12">
+              <%= f.text_field :ph1, class: "form-control", autofocus: true, required: true %>
+            </div>
+          </div>
+        </div>
+
+        <!-- ADDRESS-->
+        <div class="form-group"> 
+          <div class="row">
+            <div class="control-label col-sm-8">
+              <strong><%= addr %></strong>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-8 col-12">
+             <%= f.text_field :add1, class: "form-control", autofocus: true, required: true %> <font size="2">&nbsp</font>
+            </div>
+            <div class="col-sm-8 col-12">
+             <%= f.text_field :add2, class: "form-control", autofocus: true %> <font size="2">&nbsp</font>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-3 col-6">
+             <%= f.text_field :city, class: "form-control", autofocus: true, required: true %> <font size="2"> Bandar </font>
+            </div>
+            <div class="col-sm-3 col-5">
+             <%= f.text_field :state, class: "form-control", autofocus: true, required: true %> <font size="2"> Negeri </font>
+            </div>
+            <div class="col-sm-2 col-4">
+             <%= f.number_field :postcode, class: "form-control", autofocus: true, required: true %> <font size="2"> Poskod </font>
+            </div>
+          </div>
+        </div>
+
+        <!-- DAERAH KEAHLIAN-->
+        <div class="form-group"> 
+          <div class="row">
+            <div class="control-label col-sm-8">
+              <strong>DAERAH KEAHLIAN</strong>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-8 col-8">
+              <%= f.select :mmb, 
+              options_for_select(
+              $daerah_ptns, 
+              selected: @ptnsmmb.mmb), 
+              {include_blank: "SILA PILIH"}, {required: true} %>
+            </div>
+          </div>
+        </div>
+
+        <% if inst %>
+
+          <!-- taska owner name -->
+          <div class="form-group"> 
+            <div class="row">
+              <div class="control-label col-sm-8">
+                <strong>NAMA WAKIL INSTITUSI</strong>
               </div>
-            <% end %>
+            </div>
+            <div class="row">
+              <div class="col-sm-8 col-12">
+                <%= f.text_field :ts_owner, class: "form-control", autofocus: true, required: true %>
+              </div>
+            </div>
           </div>
-        </div>
-      </div>
 
-      <!-- EMAIL -->    
-      <div class="form-group"> 
-        <div class="row">
-          <div class="control-label col-sm-8">
-            <strong>EMAIL</strong>
+           <!-- TASKA STATUS-->
+          <div class="form-group"> 
+            <div class="row">
+              <div class="control-label col-sm-8">
+                <strong>STATUS INSTITUSI</strong>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-8 col-8">
+                <%= f.select :ts_status, options_for_select(["BERDAFTAR", "DALAM PROSES", "TIDAK BERDAFTAR"], 
+                                                          selected: @ptnsmmb.ts_status), 
+                {include_blank: "SILA PILIH"} %>
+              </div>
+            </div>
           </div>
-        </div>
-        <div class="row">
-          <div class="col-sm-8 col-12">
-            <%= f.email_field :email, class: "form-control", autofocus: true, required: true %>
-          </div>
-        </div>
-      </div>
 
-      <!-- NO TELEFON -->    
-      <div class="form-group"> 
-        <div class="row">
-          <div class="control-label col-sm-8">
-            <strong>NO TELEFON</strong>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-sm-8 col-12">
-            <%= f.text_field :ph1, class: "form-control", autofocus: true, required: true %>
-          </div>
-        </div>
-      </div>
 
-      <!-- ADDRESS-->
-      <div class="form-group"> 
-        <div class="row">
-          <div class="control-label col-sm-8">
-            <strong><%= addr %></strong>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-sm-8 col-12">
-           <%= f.text_field :add1, class: "form-control", autofocus: true, required: true %> <font size="2">&nbsp</font>
-          </div>
-          <div class="col-sm-8 col-12">
-           <%= f.text_field :add2, class: "form-control", autofocus: true %> <font size="2">&nbsp</font>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-sm-3 col-6">
-           <%= f.text_field :city, class: "form-control", autofocus: true, required: true %> <font size="2"> Bandar </font>
-          </div>
-          <div class="col-sm-3 col-5">
-           <%= f.text_field :state, class: "form-control", autofocus: true, required: true %> <font size="2"> Negeri </font>
-          </div>
-          <div class="col-sm-2 col-4">
-           <%= f.number_field :postcode, class: "form-control", autofocus: true, required: true %> <font size="2"> Poskod </font>
-          </div>
-        </div>
-      </div>
+        <% else %>
 
-      <!-- DAERAH KEAHLIAN-->
-      <div class="form-group"> 
-        <div class="row">
-          <div class="control-label col-sm-8">
-            <strong>DAERAH KEAHLIAN</strong>
+          <!-- TASKA DETAILS -->
+          <!-- taska name -->
+          <div class="form-group"> 
+            <div class="row">
+              <div class="control-label col-sm-8">
+                <strong>NAMA TASKA/PJKK</strong>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-8 col-12">
+                <%= f.text_field :ts_name, class: "form-control", autofocus: true %>
+              </div>
+            </div>
           </div>
-        </div>
-        <div class="row">
-          <div class="col-sm-8 col-8">
-            <%= f.select :mmb, 
-            options_for_select(
-            $daerah_ptns, 
-            selected: @ptnsmmb.mmb), 
-            {include_blank: "SILA PILIH"}, {required: true} %>
+
+          <!-- taska owner name -->
+          <div class="form-group"> 
+            <div class="row">
+              <div class="control-label col-sm-8">
+                <strong>ORANG YANG BOLEH DIHUBUNGI</strong>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-8 col-12">
+                <%= f.text_field :ts_owner, class: "form-control", autofocus: true %>
+              </div>
+            </div>
           </div>
-        </div>
-      </div>
+
+          <!-- Taska PHONE-->
+          <div class="form-group"> 
+            <div class="row">
+              <div class="control-label col-sm-8">
+                <strong>NO TELEFON TASKA/PJKK</strong>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-2 col-3">
+               <%= f.text_field  :ts_ph1, maxlength: 3, class: "form-control", autofocus: true %><font size="2"></font> 
+              </div>
+              -
+              <div class="col-sm-3 col-5">
+                <%= f.text_field  :ts_ph2, maxlength: 8, class: "form-control", autofocus: true %><font size="2"></font> 
+              </div>
+            </div>
+          </div>
+
+          <!-- TASKA ADDRESS-->
+          <div class="form-group"> 
+            <div class="row">
+              <div class="control-label col-sm-8">
+                <strong>ALAMAT TASKA/PJKK</strong>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-8 col-12">
+               <%= f.text_field :ts_add1, class: "form-control", autofocus: true %> <font size="2"> &nbsp </font>
+              </div>
+              <div class="col-sm-8 col-12">
+               <%= f.text_field :ts_add2, class: "form-control", autofocus: true %> <font size="2"> &nbsp </font>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-3 col-6">
+               <%= f.text_field :ts_city, class: "form-control", autofocus: true %> <font size="2"> Bandar </font>
+              </div>
+              <div class="col-sm-3 col-5">
+               <%= f.text_field :ts_state, class: "form-control", autofocus: true %> <font size="2"> Negeri </font>
+              </div>
+              <div class="col-sm-2 col-4">
+               <%= f.number_field :ts_postcode, class: "form-control", autofocus: true %> <font size="2"> Poskod </font>
+              </div>
+            </div>
+          </div>
+
+          <!-- TASKA STATUS-->
+          <div class="form-group"> 
+            <div class="row">
+              <div class="control-label col-sm-8">
+                <strong>STATUS TASKA/PJKK</strong>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-8 col-8">
+                <%= f.select :ts_status, options_for_select(["BERDAFTAR", "DALAM PROSES", "TIDAK BERDAFTAR"], 
+                                                          selected: @ptnsmmb.ts_status), 
+                {include_blank: "SILA PILIH"} %>
+              </div>
+            </div>
+          </div>
+
+          <!-- YOUR ROLE-->
+          <div class="form-group"> 
+            <div class="row">
+              <div class="control-label col-sm-8">
+                <strong>JAWATAN ANDA DI TASKA/PJKK</strong>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-8 col-8">
+                <%= f.select :ts_job, options_for_select(["Pengusaha/Pengerusi", "Pengurus/Penyelia", "Pengasuh"], selected: @ptnsmmb.ts_job), 
+                {include_blank: "SILA PILIH"} %>
+              </div>
+            </div>
+          </div>
+
+
+        <% end %> <!-- END MMB TYPE -->
+      <% end %> <!-- END TESTING -->
 
 
 

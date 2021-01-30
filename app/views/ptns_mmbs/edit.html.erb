@@ -1,11 +1,1 @@
-<div class="col-sm-6" style="background-color:blue">
-  <font color="white"><h2>KEMASKINI MAKLUMAT AHLI</h2></font>
-</div><br>
-
-<% if params[:type].blank? %>
-    <% tp="ptns" %>
-  <% else %>
-    <% tp=params[:type] %>
-  <% end %>
-
-<%= render 'ptns_mmbs/form', tp: tp %>
+<%= render 'ptns_mmbs/form' %>

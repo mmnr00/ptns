@@ -6,12 +6,46 @@ class PtnsMmbsController < ApplicationController
 		@fotos = @ptnsmmb.fotos.build
 	end
 
+	def create
+		@ptnsmmb = PtnsMmb.new(ptnsmmb_params)
+		if PtnsMmb.where(icf: @ptnsmmb.icf).present?
+			flash[:danger] = "DATA ANDA SUDAH DIDAFTARKAN DALAM SISTEM KAMI"	
+		else
+			idh = {"AHLI BIASA" => "AB", "AHLI SEUMUR HIDUP" => "AH", "AHLI INSTITUSI" => "AI"}
+			
+			@ptnsmmb.save
+			@ptnsmmb.mmbid = "PTNS-#{idh[@ptnsmmb.tp]}-#{@ptnsmmb.id.to_s.rjust(4,"0")}"
+			@ptnsmmb.save
+			flash[:notice] = "PENDAFTARAN BERJAYA. TERIMA KASIH. SILA IKUTI ARAHAN SETERUSNYA"
+		end	
+		redirect_to checkmmb_path(id: @ptnsmmb.icf)
+	end
+
+	def edit
+		@ptnsmmb = PtnsMmb.find(params[:id])
+	end
+
+	def update
+		@ptnsmmb = PtnsMmb.find(params[:id])
+		if @ptnsmmb.update(ptnsmmb_params)
+			newic="#{@ptnsmmb.ic1}#{@ptnsmmb.ic2}#{@ptnsmmb.ic3}"
+			@ptnsmmb.icf=newic
+			@ptnsmmb.save
+			flash[:notice] = "Maklumat anda telah dikemaskini"
+			redirect_to checkmmb_path(icf: @ptnsmmb.icf)
+			
+		else
+			render 'edit'
+		end
+	end
+
 	def checkmmb
-		if params[:id] == "8708"
+		if (pt=PtnsMmb.where(icf: params[:icf])).present?
+			@mmb = pt.last
 			@exs = true
 			txt = "Data anda ada dalam rekod kami"
 			#QRCODE
-			qrcode = RQRCode::QRCode.new("http://github.com/")
+			qrcode = RQRCode::QRCode.new(checkmmb_url(icf: @mmb.icf))
 			@svg = qrcode.as_svg(
 			  offset: 0,
 			  color: '000',
@@ -36,13 +70,18 @@ class PtnsMmbsController < ApplicationController
 
 			# IO.binwrite("app/assets/images/qrcodes/qr_#{params[:id]}.png", png.to_s)
 
-			flash[:notice] = txt
+			#flash[:notice] = txt
 			#render action: "checkmmb", layout: "eip"
 		else
 			@exs = false
-			flash[:notice] = "Data anda tiada dalam rekod. Sila daftar dibawah."
+			#flash[:notice] = "Data anda tiada dalam rekod. Sila daftar dibawah."
 		end
 	end
+
+	
+
+
+# ********** OLD PTNS *****************
 
 	def regedit
 		@ptnsmmb = PtnsMmb.find(params[:id])
@@ -111,19 +150,7 @@ class PtnsMmbsController < ApplicationController
 		@ptnsmmb.fotos.build
 	end
 
-	def create
-		@ptnsmmb = PtnsMmb.new(ptnsmmb_params)
-		icf = "#{@ptnsmmb.ic1}#{@ptnsmmb.ic2}#{@ptnsmmb.ic3}"
-		if PtnsMmb.where(icf: icf).where(tp: @ptnsmmb.tp).present?
-			flash[:notice] = "NAMA ANDA SUDAH DIDAFTARKAN DALAM SISTEM KAMI"
-			redirect_to new_ptns_mmb_path(type: @ptnsmmb.tp)
-		else
-			@ptnsmmb.icf = icf
-			@ptnsmmb.save
-			flash[:notice] = "PENDAFTARAN BERJAYA. TERIMA KASIH. SILA IKUTI ARAHAN SETERUSNYA"
-			redirect_to after_reg_ptns_path(tp: @ptnsmmb.tp)
-		end	
-	end
+	
 
 	def after_reg
 	end
@@ -208,23 +235,7 @@ class PtnsMmbsController < ApplicationController
 		end
 	end
 
-	def edit
-		@ptnsmmb = PtnsMmb.find(params[:id])
-	end
-
-	def update
-		@ptnsmmb = PtnsMmb.find(params[:id])
-		if @ptnsmmb.update(ptnsmmb_params)
-			newic="#{@ptnsmmb.ic1}#{@ptnsmmb.ic2}#{@ptnsmmb.ic3}"
-			@ptnsmmb.icf=newic
-			@ptnsmmb.save
-			flash[:notice] = "Maklumat anda telah dikemaskini"
-			redirect_to new_ptns_mmb_path(type: @ptnsmmb.tp)
-			
-		else
-			render 'edit'
-		end
-	end
+	
 
 	def destroy
 	end
@@ -258,6 +269,7 @@ class PtnsMmbsController < ApplicationController
 																		:ts_ph1,
 																		:ts_ph2,
 																		:email,
+																		:icf,
 																		:tp,
 																		fotos_attributes: [:foto, :picture, :foto_name])
    end

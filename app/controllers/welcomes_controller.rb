@@ -49,7 +49,7 @@ class WelcomesController < ApplicationController
 	def index2
 		@index = true
 		if params[:sch].present?
-			redirect_to checkmmb_path(id: params[:id])
+			redirect_to checkmmb_path(icf: params[:icf])
 		else
 			@teacher = current_teacher
 			@admin = current_admin

@@ -37,6 +37,10 @@ Rails.application.routes.draw do
   get 'sb2_dashboard', to: 'welcomes#sb2_dashboard'
 
   #~PTNSMMB
+  get '/checkmmb', to: 'ptns_mmbs#checkmmb'
+  get '/daftarahli', to: 'ptns_mmbs#daftarahli'
+
+  ##OLD PTNS
   get '/daftarptns', to: 'ptns_mmbs#new', as: 'new_ptns_mmb'
   #get '/daftarkprm', to: 'ptns_mmbs#new', as: 'new_ptns_mmb'
   get '/find_ptns', to: 'ptns_mmbs#find_ptns', as: 'find_ptns'
@@ -52,9 +56,6 @@ Rails.application.routes.draw do
   get '/reg_listxls', to: 'ptns_mmbs#reg_listxls'
   get '/regedit/:id', to: 'ptns_mmbs#regedit', as: 'regedit'
   get '/regupd/:id', to: 'ptns_mmbs#regupd'
-  #new ptns
-  get '/checkmmb', to: 'ptns_mmbs#checkmmb'
-  get '/daftarahli', to: 'ptns_mmbs#daftarahli'
 
 
   #~FOTOS
