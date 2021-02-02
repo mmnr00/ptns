@@ -2,6 +2,31 @@
 
   <!-- Earnings (Monthly) Card Example -->
   <div class="col-lg-3 col-md-4 col-sm-6 col-xs-3" style="padding-bottom: 10px">
+    <div class="card border-left-primary shadow h-100 py-2">
+      <div class="card-body">
+        <div class="row no-gutters align-items-center">
+          <div class="col mr-2">
+            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Perlu Verifikasi</div>
+            <div class="row no-gutters align-items-center">
+              <div class="col-auto">
+                <a href="https://www.google.com">
+                  <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800"><%= 4 %></div>
+                </a>
+              </div>
+              <div class="col">
+              </div>
+            </div>
+          </div>
+          <div class="col-auto">
+            <i class="fas fa-exclamation-circle fa-2x text-gray-300"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Earnings (Monthly) Card Example -->
+  <div class="col-lg-3 col-md-4 col-sm-6 col-xs-3" style="padding-bottom: 10px">
     <div class="card border-left-danger shadow h-100 py-2">
       <div class="card-body">
         <div class="row no-gutters align-items-center">
@@ -10,7 +35,7 @@
             <div class="row no-gutters align-items-center">
               <div class="col-auto">
                 <a href="#">
-                  <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800"><%= 4 %></div>
+                  <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800"><%= @ptnsmmbs.where(tp: "AHLI BIASA").count %></div>
                 </a>
               </div>
               <div class="col">
@@ -36,7 +61,7 @@
             <div class="row no-gutters align-items-center">
               <div class="col-auto">
                 <a href="#">
-                  <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800"><%= 3 %></div>
+                  <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800"><%= @ptnsmmbs.where(tp: "AHLI SEUMUR HIDUP").count %></div>
                 </a>
               </div>
               <div class="col">
@@ -76,37 +101,16 @@
     </div>
   </div>
 
-  <!-- Earnings (Monthly) Card Example -->
-  <div class="col-lg-3 col-md-4 col-sm-6 col-xs-3" style="padding-bottom: 10px">
-    <div class="card border-left-info shadow h-100 py-2">
-      <div class="card-body">
-        <div class="row no-gutters align-items-center">
-          <div class="col mr-2">
-            <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Ahli Tidak Aktif</div>
-            <div class="row no-gutters align-items-center">
-              <div class="col-auto">
-                <a href="https://www.google.com">
-                  <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800"><%= 4 %></div>
-                </a>
-              </div>
-              <div class="col">
-              </div>
-            </div>
-          </div>
-          <div class="col-auto">
-            <i class="fas fa-exclamation-circle fa-2x text-gray-300"></i>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+  
 
+  
 
 </div>
 
 <%
   daerah = ["Gombak", "Selayang", "Sepang"]
   ahli = ["Ahli Biasa", "Ahli Seumur Hidup", "Ahli Institusi", "Ahli Tidak Aktif"]
+  stat = ["Proses Pengesahan","Pembayaran Yuran","Aktif","Keahlian Luput"]
 %>
 
 
@@ -121,6 +125,8 @@
                     options_for_select(daerah, params[:daerah]), {include_blank: "Semua Daerah"} %>
         <%= select_tag :ahli, 
                     options_for_select(ahli, params[:ahli]), {include_blank: "Semua Keahlian"} %>
+        <%= select_tag :stat, 
+                    options_for_select(stat, params[:stat]), {include_blank: "Semua Status"} %>
         <%= hidden_field_tag :sch, params[:sch], value: true %>
         <%= button_tag(type: :submit, class: "badge badge-success shadow-none", style: "font-size: 14px; border-style: none; font-weight: normal",  id: "submit_expense") do %>
             <i class="fa fa-search"></i> Cari
@@ -128,8 +134,8 @@
 
         <%= link_to admin_index_path, class: "badge badge-danger shadow-sm", style: "font-size: 14px; font-weight: normal" do %>
             <i class="fa fa-sync"></i> Clear
-        <% end %>
-        <%= "{@kids.count} carian" %>
+        <% end %>&nbsp
+        <%= "#{@ptnsmmbs.count} data dipaparkan" %>
       <% end %>
       <div>
         

@@ -7,7 +7,7 @@
       <img class="logo" src="<%= image_path('ptns-ori.png') %>" alt="user" weight="60" height="60" /><font style="font-size: 25px; color: white; font-family: verdana; text-align: center; padding-left: 5px">Kad Keahlian</font>
     </div>
     <%
-      foto = @mmb.fotos.last
+      foto = @mmb.fotos.where(foto_name: "PTNS MMB").last
       if foto.present? && foto.picture.present?
         pic = foto.picture.url
       else

@@ -24,7 +24,7 @@
     <div class="col-lg-10">
       <% if @foto.picture.content_type == 'application/pdf' %>
         <a href="<%="#{@foto.picture.url}"%>" target="_blank">
-          <%= image_tag(Foto.where(foto_name: "PDF ICON").first.picture.url, size: "500x500") if @foto.picture? %>
+          <%= image_tag(image_path('pdf-icon.png'), size: "100x100")%>
         </a>
       <% else %>
 

@@ -1,10 +1,28 @@
 
 <div class="container bg-light">
-<% if @exs %>
-  <button class="btn btn-sm btn-block btn-success" style="margin-bottom: 5px">Aktif</button>
+<% 
+  if @exs 
+  show_card = true
+  stat = @mmb.stat
+  if stat == "Proses Pengesahan"
+    clr = "success"
+  elsif stat == "Pembayaran Yuran"
+    clr = "warning"
+  elsif stat == "Aktif"
+    clr = "primary"
+    show_card = false
+  elsif stat == "Keahlian Luput"
+    clr = "danger"
+  end
 
- <%= render 'ptns_mmbs/mmbcard'%>
- <%= link_to "Kemaskini Maklumat", edit_ptns_mmb_path(id: @mmb.id, icf: @mmb.icf, tp: @mmb.tp), class: "btn btn-sm btn-block btn-warning", style: "margin-top: 10px" %>
+  pt = PtnsMmb.find(14)
+  pt.stat = "Aktif"
+  pt.save
+
+%>
+  <button class="btn btn-sm btn-block btn-<%= clr %>" style="margin-bottom: 5px"><%= stat %></button>
+  <%= render 'ptns_mmbs/mmbcard' unless show_card %>
+  <%= link_to "Kemaskini Maklumat", edit_ptns_mmb_path(id: @mmb.id, icf: @mmb.icf, tp: @mmb.tp), class: "badge badge-secondary", style: "margin-top: 10px" %>
  
  
 

@@ -4,6 +4,9 @@ class AdminsController < ApplicationController
 	def index
 		@admin = current_admin
 		@ptnsmmbs = PtnsMmb.all
+		if params[:sch].present?
+			@ptnsmmbs = @ptnsmmbs.where('name LIKE ?', "%#{params[:sch_str].upcase}%") unless params[:sch_str].blank?
+		end
 	end
 
 	def index_old1

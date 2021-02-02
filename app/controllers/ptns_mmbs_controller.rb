@@ -40,6 +40,10 @@ class PtnsMmbsController < ApplicationController
 	end
 
 	def checkmmb
+		if params[:icf].blank?
+			flash[:danger] = "Sila Masukkan No MyKad atau No JKM"
+			redirect_to root_path and return
+		end
 		if (pt=PtnsMmb.where(icf: params[:icf])).present?
 			@mmb = pt.last
 			@exs = true
@@ -271,6 +275,7 @@ class PtnsMmbsController < ApplicationController
 																		:email,
 																		:icf,
 																		:tp,
+																		:expire,
 																		fotos_attributes: [:foto, :picture, :foto_name])
    end
 
