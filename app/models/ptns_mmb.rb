@@ -7,6 +7,7 @@ class PtnsMmb < ApplicationRecord
 
 	def upcase_all
 		self.name = self.name.upcase
+		self.icf = self.icf.upcase
 		# self.add1 = self.add1.upcase
 		# self.add2 = self.add2.upcase
 		# self.city = self.city.upcase

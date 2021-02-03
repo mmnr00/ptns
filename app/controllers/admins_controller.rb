@@ -6,6 +6,9 @@ class AdminsController < ApplicationController
 		@ptnsmmbs = PtnsMmb.all
 		if params[:sch].present?
 			@ptnsmmbs = @ptnsmmbs.where('name LIKE ?', "%#{params[:sch_str].upcase}%") unless params[:sch_str].blank?
+			@ptnsmmbs = @ptnsmmbs.where(mmb: params[:daerah]) unless params[:daerah].blank?
+			@ptnsmmbs = @ptnsmmbs.where(tp: params[:ahli].upcase) unless params[:ahli].blank?
+			@ptnsmmbs = @ptnsmmbs.where(stat: params[:stat]) unless params[:stat].blank?
 		end
 	end
 

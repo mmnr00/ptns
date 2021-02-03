@@ -10,7 +10,7 @@
             <div class="row no-gutters align-items-center">
               <div class="col-auto">
                 <a href="https://www.google.com">
-                  <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800"><%= 4 %></div>
+                  <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800"><%= @ptnsmmbs.where(stat: "Proses Pengesahan").count  %></div>
                 </a>
               </div>
               <div class="col">
@@ -86,7 +86,7 @@
             <div class="row no-gutters align-items-center">
               <div class="col-auto">
                 <a href="https://www.google.com">
-                  <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800"><%= 4 %></div>
+                  <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800"><%= @ptnsmmbs.where(tp: "AHLI INSTITUSI").count %></div>
                 </a>
               </div>
               <div class="col">
@@ -113,6 +113,10 @@
   stat = ["Proses Pengesahan","Pembayaran Yuran","Aktif","Keahlian Luput"]
 %>
 
+<%= link_to admin_index_path, class: "badge badge-info shadow-sm", style: "font-size: 15px; font-weight: normal; margin-top: -200px" do %>
+  <i class="fa fa-file-excel"></i> Muat Turun Data #
+<% end %>
+
 
 <!-- START TABLE -->
 <!-- DataTales Example -->
@@ -135,7 +139,7 @@
         <%= link_to admin_index_path, class: "badge badge-danger shadow-sm", style: "font-size: 14px; font-weight: normal" do %>
             <i class="fa fa-sync"></i> Clear
         <% end %>&nbsp
-        <%= "#{@ptnsmmbs.count} data dipaparkan" %>
+        <%= link_to "#{@ptnsmmbs.count} data dipaparkan", "#",class: "badge badge-secondary shadow-sm", style: "font-size: 12px; font-weight: normal" %>
       <% end %>
       <div>
         
@@ -151,22 +155,47 @@
     
     
     <div class="table table-responsive border" style="font-size:13px">
-        <table class="table table-bordered table-striped shadow" id="dataTable" width="100%" cellspacing="0">
+        <table class="table table-bordered table-striped shadow" width="100%" cellspacing="0">
           <thead>
             <tr class="shadow">
               <th style="background-color:#ffb2b2">NAMA & IC</th>
               <th style="background-color:#ffb2b2; width: ">JENIS KEAHLIAN</th>
               <th style="background-color:#ffb2b2; width: ">MAKLUMAT AHLI</th>
+               <th style="background-color:#ffb2b2; width: ">DOKUMEN PENTING</th>
               <th style="background-color:#ffb2b2; width: ">STATUS</th>
             </tr>
           </thead>
           <tbody>
             <% @ptnsmmbs.each do |ptm| %>
               <tr>
-                <td><%= ptm.name %></td>
-                <td></td>
-                <td></td>
-                <td></td>
+                <td>
+                  <%= link_to ptm.name, root_path, target: "_blank" %><br>
+                  (<%= ptm.icf %>)
+                </td>
+                <td>
+                  <%= "#{ptm.tp}" %><br>
+                  (<%= ptm.mmbid %>)
+                </td>
+                <td>
+                  <%= ptm.ph1 %><br>
+                  <%= ptm.email %>
+                </td>
+                <td>
+                  <b>TARIKH LUPUT JKM: </b><%= ptm.expire.strftime('%d-%^b-%y') %><br>
+                  <b>STATUS JKM: </b><%= ptm.ts_status %><br>
+                  <% if (ft=ptm.fotos.where(foto_name: "SIJIL JKM").first.picture).present? %>
+                    <%= link_to "SIJIL JKM", ft.url, target: "_blank" %>
+                  <% else %>
+                    <i>Tiada Sijil JKM</i>
+                  <% end %><br>
+                  <% if (ft=ptm.fotos.where(foto_name: "JAWATAN").first.picture).present? %>
+                    <%= link_to "PENGESAHAN JAWATAN", ft.url, target: "_blank" %>
+                  <% else %>
+                    <i>Tiada Pengesahan Jawatan</i>
+                  <% end %><br>
+                  
+                </td>
+                <td><%= ptm.stat %></td>
               </tr>
               
             
