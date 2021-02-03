@@ -39,6 +39,7 @@ Rails.application.routes.draw do
   #~PTNSMMB
   get '/checkmmb', to: 'ptns_mmbs#checkmmb'
   get '/daftarahli', to: 'ptns_mmbs#daftarahli'
+  get '/mmbprof', to: 'ptns_mmbs#mmbprof'
 
   ##OLD PTNS
   get '/daftarptns', to: 'ptns_mmbs#new', as: 'new_ptns_mmb'

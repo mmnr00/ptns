@@ -1,6 +1,10 @@
 class PtnsMmbsController < ApplicationController
 	before_action :set_all
 
+	def mmbprof
+		@mmb = PtnsMmb.find(params[:id])
+	end
+
 	def daftarahli
 		@ptnsmmb = PtnsMmb.new
 		@fotos = @ptnsmmb.fotos.build

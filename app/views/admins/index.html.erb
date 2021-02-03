@@ -169,7 +169,7 @@
             <% @ptnsmmbs.each do |ptm| %>
               <tr>
                 <td>
-                  <%= link_to ptm.name, root_path, target: "_blank" %><br>
+                  <%= link_to ptm.name, mmbprof_path(id: ptm.id), target: "_blank" %><br>
                   (<%= ptm.icf %>)
                 </td>
                 <td>
