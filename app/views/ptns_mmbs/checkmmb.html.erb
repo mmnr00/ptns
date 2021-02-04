@@ -3,6 +3,7 @@
 <% 
   if @exs 
   show_card = true
+  show_prof = false
   stat = @mmb.stat
   if stat == "Proses Pengesahan"
     clr = "success"
@@ -11,18 +12,19 @@
   elsif stat == "Aktif"
     clr = "primary"
     show_card = false
+    show_prof = true
   elsif stat == "Keahlian Luput"
     clr = "danger"
   end
 
-  pt = PtnsMmb.find(14)
-  pt.stat = "Aktif"
-  #pt.save
+  
 
 %>
-  <button class="btn btn-sm btn-block btn-<%= clr %>" style="margin-bottom: 5px"><%= stat %></button>
+  <button class="btn btn-sm btn-block btn-<%= clr %>" style="margin-bottom: 0px"><%= stat %></button>
+  <%= link_to "Kemaskini Maklumat", edit_ptns_mmb_path(id: @mmb.id, icf: @mmb.icf, tp: @mmb.tp), class: "badge badge-dark", style: "margin-bottom: 5px" %>
   <%= render 'ptns_mmbs/mmbcard' unless show_card %>
-  <%= link_to "Kemaskini Maklumat", edit_ptns_mmb_path(id: @mmb.id, icf: @mmb.icf, tp: @mmb.tp), class: "badge badge-secondary", style: "margin-top: 10px" %>
+  <%= render 'ptns_mmbs/prof' unless show_prof %>
+  
  
  
 

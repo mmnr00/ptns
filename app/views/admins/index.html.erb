@@ -155,6 +155,8 @@
     
     
     <div class="table table-responsive border" style="font-size:13px">
+      <%= form_for(:ans, :url => {:controller=>'ptns_mmbs', :action=>'bulkupd'}, :html => {multipart: true, class: "form-horizontal", method: :post, role: "form"}) do |f| %>
+
         <table class="table table-bordered table-striped shadow" width="100%" cellspacing="0">
           <thead>
             <tr class="shadow">
@@ -166,7 +168,8 @@
             </tr>
           </thead>
           <tbody>
-            <% @ptnsmmbs.each do |ptm| %>
+            <% @ptnsmmbs.order('name ASC').each do |ptm| %>
+            <%= f.fields_for :"#{ptm.id}" do |h| %>
               <tr>
                 <td>
                   <%= link_to ptm.name, mmbprof_path(id: ptm.id), target: "_blank" %><br>
@@ -195,13 +198,20 @@
                   <% end %><br>
                   
                 </td>
-                <td><%= ptm.stat %></td>
+                <td>
+                  
+                    <%= h.select :stat, options_for_select(stat, 
+                                                          selected: ptm.stat), 
+                    {include_blank: "Select"}, {required: true} %>
+                </td>
               </tr>
               
-            
+            <% end %> <!-- END FORM H -->
             <% end %> <!-- END LOOP -->
           </tbody>
         </table>
+        <%= f.submit :"KEMASKINI",  class: 'btn btn-sm btn-block btn-success btn-lg', style: "align:center" %>
+      <% end %> <!-- FORM -->
     </div>
   </div>
   <% end %>

@@ -1,8 +1,21 @@
 class PtnsMmbsController < ApplicationController
 	before_action :set_all
 
+	def bulkupd
+		flash[:success] = "Maklumat Ahli Dikemaskini"
+		mmbs = params[:ans]
+		mmbs.each do |k,v|
+			pt = PtnsMmb.find(k)
+			pt.stat = v["stat"]
+			pt.save
+		end
+		redirect_to request.referrer
+	end
+
 	def mmbprof
 		@mmb = PtnsMmb.find(params[:id])
+		@inst = true
+		@inst = false unless @mmb.tp == "AHLI INSTITUSI"
 	end
 
 	def daftarahli
@@ -51,6 +64,8 @@ class PtnsMmbsController < ApplicationController
 		if (pt=PtnsMmb.where(icf: params[:icf])).present?
 			@mmb = pt.last
 			@exs = true
+			@inst = true
+			@inst = false unless @mmb.tp == "AHLI INSTITUSI"
 			txt = "Data anda ada dalam rekod kami"
 			#QRCODE
 			qrcode = RQRCode::QRCode.new(checkmmb_url(icf: @mmb.icf))
@@ -280,6 +295,7 @@ class PtnsMmbsController < ApplicationController
 																		:icf,
 																		:tp,
 																		:expire,
+																		:gender,
 																		fotos_attributes: [:foto, :picture, :foto_name])
    end
 

@@ -69,6 +69,25 @@
               </div>
             </div>
           </div>
+
+          <!-- Gender -->
+          <div class="form-group"> 
+            <div class="row">
+              <div class="control-label col-sm-8">
+                <strong>JANTINA</strong>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-8 col-8">
+                <%= f.select :gender, 
+                options_for_select(
+                ["Perempuan","Lelaki"],
+                selected: @ptnsmmb.gender), 
+                {include_blank: "SILA PILIH"}, {required: true} %>
+              </div>
+            </div>
+          </div>
+
         <% end %>
 
         <!-- DOB -->

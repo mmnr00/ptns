@@ -1,0 +1,180 @@
+<% 
+
+  if @inst
+    icn = "No JKM"
+    tlhr = "Tarikh Luput JKM"
+    addr = "Alamat Institusi"
+  else
+    icn = "No Mykad"
+    tlhr = "Tarikh Lahir"
+    addr = "Alamat Kediaman"
+  end 
+
+  
+%>
+
+
+
+<div class="container bg-light">
+  <div class="panel panel-info">
+    <div class="panel-heading">
+      <h3 class="panel-title" align="center">
+        <b><%= @mmb.name %></b>
+      </h3>
+    </div>
+    <div class="panel-body">
+      <div class="row">
+        <div class="col-md-12 col-lg-12" align="center" style="margin-bottom: 10px"> 
+          <% image = @mmb.fotos.where(foto_name: "PTNS MMB").first %>
+          <% if image.present? && image.present? && image.picture.present? %>
+            <a href="<%="#{image.picture.url}"%>" target="_blank">
+              <% if @pdf %>
+                <%= wicked_pdf_image_tag(image.picture.url, size: "100x100") %>
+              <% else %>
+                <%= image_tag(image.picture.url, size: "150x150") %>
+              <% end %>
+            </a>
+          <% else %>
+            No photo uploaded
+          <% end %>
+         </div>
+
+      <div class=" col-md-12 col-lg-12"> 
+        <h4 align="center"><%= @mmb.tp %> (<%= @mmb.mmb %>)</h4>
+        <div class="table-responsive">
+          
+          <table class="table table-striped" id="" width="100%" cellspacing="0">
+            <tbody>
+
+              <tr>
+                <td><strong>No Ahli:</strong></td>
+                <td>
+                  <%= @mmb.mmbid %>
+                </td>
+              </tr>
+
+              <tr>
+                <td><strong><%= icn %>:</strong></td>
+                <td>
+                  <%= @mmb.icf %>
+                </td>
+              </tr>
+
+              <% if !@inst %>
+                <tr>
+                  <td><strong>Tarikh Lahir:</strong></td>
+                  <td>
+                    <%= @mmb.dob.strftime('%d-%m-%Y') %>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td><strong>Jantina:</strong></td>
+                  <td>
+                    <%= @mmb.gender %>
+                  </td>
+                </tr>
+              <% end %>
+
+              <tr>
+                <td><strong>Email:</strong></td>
+                <td>
+                  <%= @mmb.email %>
+                </td>
+              </tr>
+
+              <tr>
+                <td><strong>No Telefon:</strong></td>
+                <td>
+                  <%= @mmb.ph1 %>
+                </td>
+              </tr>
+
+              <tr>
+                <td><strong><%= addr %>:</strong></td>
+                <td>
+                  <%= "#{@mmb.add1}, #{@mmb.add2}" %><br> 
+                  <%= "#{@mmb.city}, #{@mmb.postcode}" %><br> 
+                  <%= "#{@mmb.state}" %>
+                </td>
+              </tr>
+
+              <tr>
+                  <td><strong>Nama Pengusaha:</strong></td>
+                  <td>
+                    <%= @mmb.ts_owner %>
+                  </td>
+                </tr>
+
+              <% if @inst %>
+ 
+                <tr>
+                  <td><strong>Status Institusi:</strong></td>
+                  <td>
+                    <%= @mmb.ts_status %>
+                  </td>
+                </tr>
+
+              <% else %>
+
+                <tr>
+                  <td><strong>Status Taska/PJKK:</strong></td>
+                  <td>
+                    <%= @mmb.ts_status %>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td><strong>Nama Taska/PJKK:</strong></td>
+                  <td>
+                    <%= @mmb.ts_name %>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td><strong>No Telefon Taska/PJKK:</strong></td>
+                  <td>
+                    <%= "#{@mmb.ts_ph1}-#{@mmb.ts_ph2}" %>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td><strong>Alamat Taska/PJKK:</strong></td>
+                  <td>
+                    <%= "#{@mmb.ts_add1}, #{@mmb.ts_add2}" %><br> 
+                    <%= "#{@mmb.ts_city}, #{@mmb.ts_postcode}" %><br> 
+                    <%= "#{@mmb.ts_state}" %>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td><strong>Jawatan di Taska/PJKK:</strong></td>
+                  <td>
+                    <%= @mmb.ts_job %>
+                  </td>
+                </tr>
+
+
+              <% end %>
+
+              <tr>
+                <td><strong>Tarikh Luput JKM:</strong></td>
+                <td>
+                  <%= @mmb.expire.strftime('%d-%^b-%Y') %>
+                </td>
+              </tr>
+
+              
+
+              
+            </tbody>
+
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+          

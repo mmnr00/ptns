@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_02_02_130650) do
+ActiveRecord::Schema.define(version: 2021_02_03_122724) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -424,6 +424,7 @@ ActiveRecord::Schema.define(version: 2021_02_02_130650) do
     t.string "mmbid"
     t.string "tp"
     t.string "stat"
+    t.string "gender"
   end
 
   create_table "ptnssps", force: :cascade do |t|
