@@ -225,7 +225,7 @@
             </div>
             <div class="row">
               <div class="col-sm-8 col-8">
-                <%= f.select :ts_status, options_for_select(["BERDAFTAR", "DALAM PROSES", "TIDAK BERDAFTAR"], 
+                <%= f.select :ts_status, options_for_select(["BERDAFTAR", "DALAM PROSES"], 
                                                           selected: @ptnsmmb.ts_status), 
                 {include_blank: "SILA PILIH"} %>
               </div>
@@ -319,7 +319,7 @@
             </div>
             <div class="row">
               <div class="col-sm-8 col-8">
-                <%= f.select :ts_status, options_for_select(["BERDAFTAR", "DALAM PROSES", "TIDAK BERDAFTAR"], 
+                <%= f.select :ts_status, options_for_select(["BERDAFTAR", "DALAM PROSES"], 
                                                           selected: @ptnsmmb.ts_status), 
                 {include_blank: "SILA PILIH"} %>
               </div>

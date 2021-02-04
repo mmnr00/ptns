@@ -29,7 +29,7 @@ class PtnsMmbsController < ApplicationController
 			flash[:danger] = "DATA ANDA SUDAH DIDAFTARKAN DALAM SISTEM KAMI"	
 		else
 			idh = {"AHLI BIASA" => "AB", "AHLI SEUMUR HIDUP" => "AH", "AHLI INSTITUSI" => "AI"}
-			
+			@ptnsmmb.stat = "Proses Pengesahan"
 			@ptnsmmb.save
 			@ptnsmmb.mmbid = "PTNS-#{idh[@ptnsmmb.tp]}-#{@ptnsmmb.id.to_s.rjust(4,"0")}"
 			@ptnsmmb.save
