@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_02_03_122724) do
+ActiveRecord::Schema.define(version: 2021_03_18_221500) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -425,6 +425,7 @@ ActiveRecord::Schema.define(version: 2021_02_03_122724) do
     t.string "tp"
     t.string "stat"
     t.string "gender"
+    t.boolean "newreg"
   end
 
   create_table "ptnssps", force: :cascade do |t|

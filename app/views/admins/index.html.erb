@@ -9,7 +9,7 @@
             <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Perlu Verifikasi</div>
             <div class="row no-gutters align-items-center">
               <div class="col-auto">
-                <a href="https://www.google.com">
+                <a href="<%= admin_index_url(stat: "Proses Pengesahan", sch: true)%>">
                   <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800"><%= @ptnsmmbs.where(stat: "Proses Pengesahan").count  %></div>
                 </a>
               </div>
