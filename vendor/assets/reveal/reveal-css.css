@@ -1306,3 +1306,36 @@ section {
 #footer .credits a {
   color: #0c2e8a;
 }
+
+@media print {
+  #header{
+    display:none;
+  }
+  .prt-card-header{
+    display:none;
+  }
+  .mmb-card {
+    width: 50vw;
+    /*transform: scaleY(1.5);*/
+  }
+  #footer {
+    display: none;
+  }
+}
+
+
+
+
+@media (max-width: 768px) {
+  #header {
+    padding: 20px 0;
+    height: 74px;
+  }
+  #header #logo h1 {
+    font-size: 34px;
+  }
+  #header #logo img {
+    max-height: 40px;
+  }
+}
+
