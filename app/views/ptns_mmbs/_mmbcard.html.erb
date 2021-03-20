@@ -23,7 +23,7 @@
     <p>Ahli dari <%= @mmb.created_at.strftime('%d-%b-%y') %></p>
     <div class="buttons">
       <button class="primary">
-        <%= @mmb.tp %>
+        <%= link_to "#{@mmb.tp}", "#", style: "color: black", :onclick => 'window.print();return false;'  %>
       </button>
     </div>
     <br><br>

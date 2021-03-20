@@ -90,11 +90,9 @@ class PtnsMmbsController < ApplicationController
 			  resize_gte_to: false,
 			  size: 200
 			)
-
-			# IO.binwrite("app/assets/images/qrcodes/qr_#{params[:id]}.png", png.to_s)
-
-			#flash[:notice] = txt
-			#render action: "checkmmb", layout: "eip"
+			if params[:prt].present?
+				render action: "checkmmb", layout: "eip"
+			end
 		else
 			@exs = false
 			#flash[:notice] = "Data anda tiada dalam rekod. Sila daftar dibawah."

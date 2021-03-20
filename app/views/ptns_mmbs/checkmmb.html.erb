@@ -20,8 +20,13 @@
   
 
 %>
-  <button class="btn btn-sm btn-block btn-<%= clr %>" style="margin-bottom: 0px"><%= stat %></button>
-  <%= link_to "Kemaskini Maklumat", edit_ptns_mmb_path(id: @mmb.id, icf: @mmb.icf, tp: @mmb.tp), class: "badge badge-dark", style: "margin-bottom: 5px" %>
+  <% if params[:prt].blank? %>
+    <button class="btn btn-sm btn-block btn-<%= clr %>" style="margin-bottom: 0px"><%= stat %></button>
+    <%= link_to "Kemaskini Maklumat", edit_ptns_mmb_path(id: @mmb.id, icf: @mmb.icf, tp: @mmb.tp), class: "badge badge-dark", style: "margin-bottom: 5px" %>
+    <% if !show_card %>
+      <%= link_to "Cetak Kad Ahli", checkmmb_path(icf: @mmb.icf, prt: true), class: "badge badge-success", style: "margin-bottom: 5px" %>
+    <% end %>
+  <% end %>
   <%= render 'ptns_mmbs/mmbcard' unless show_card %>
   <%= render 'ptns_mmbs/prof' unless show_prof %>
   

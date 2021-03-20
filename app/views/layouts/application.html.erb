@@ -63,10 +63,14 @@
               </ul>
             </li>
           <% end %>
-          <li>
+          <li class="menu-has-children">
             <% current_admin.present? %>
             <% if current_admin.present? %>
-              <a href="<%= destroy_admin_session_url %>" data-confirm="Adakah anda pasti?" data-method="delete" >Log Keluar</a>
+              <%= link_to "#{current_admin.username}", "#",class: "badge badge-pill badge-info" %>
+              <ul>
+                <li><a href="<%= admin_index_url%>">Kembali ke Paparan Admin</a></li>
+                <li><a href="<%= destroy_admin_session_url %>" data-confirm="Adakah anda pasti?" data-method="delete" >Log Keluar</a></li>
+              </ul>
             <% else %>
               <a href="<%= admin_index_url %>">Log Masuk</a>
             <% end %>
