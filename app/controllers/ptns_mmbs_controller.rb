@@ -30,6 +30,7 @@ class PtnsMmbsController < ApplicationController
 		else
 			idh = {"AHLI BIASA" => "AB", "AHLI SEUMUR HIDUP" => "AH", "AHLI INSTITUSI" => "AI"}
 			@ptnsmmb.stat = "Proses Pengesahan"
+			@ptnsmmb.newreg = true
 			@ptnsmmb.save
 			@ptnsmmb.mmbid = "PTNS-#{idh[@ptnsmmb.tp]}-#{@ptnsmmb.id.to_s.rjust(4,"0")}"
 			@ptnsmmb.save
