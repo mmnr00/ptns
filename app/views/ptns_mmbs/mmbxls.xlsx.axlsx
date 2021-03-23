@@ -14,8 +14,17 @@ wb.styles do |style|
     sheet.add_row ["","#{Time.now.strftime('%d-%^b-%Y %I:%M%p')}"]
     sheet.add_row [""]
     sheet.add_row ["NO",
-                  "NAME",
-                  "CENTER"]
+                  "NAMA",
+                  "NO MYKAD/JKM",
+                  "NO AHLI",
+                  "JENIS KEAHLIAN",
+                  "DAERAH",
+                  "TARIKH LAHIR",
+                  "JANTINA",
+                  "EMAIL",
+                  "NO TELEFON",
+                  "ALAMAT",
+                  ]
     sheet.rows[0].style = header_1
     sheet.rows[1].style = header_2
     sheet.rows[3].style = highlight_cell
