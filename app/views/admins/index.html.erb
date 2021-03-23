@@ -34,8 +34,8 @@
             <div class="text-xs font-weight-bold text-danger text-uppercase mb-1">Ahli Biasa</div>
             <div class="row no-gutters align-items-center">
               <div class="col-auto">
-                <a href="#">
-                  <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800"><%= @ptnsmmbs.where(tp: "AHLI BIASA").count %></div>
+                <a href="<%= admin_index_url(stat: "Aktif", sch: true, ahli: "Ahli Biasa")%>">
+                  <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800"><%= @ptnsmmbs.where(tp: "AHLI BIASA", stat: "Aktif").count %></div>
                 </a>
               </div>
               <div class="col">
@@ -60,8 +60,8 @@
             <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Ahli Seumur Hidup</div>
             <div class="row no-gutters align-items-center">
               <div class="col-auto">
-                <a href="#">
-                  <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800"><%= @ptnsmmbs.where(tp: "AHLI SEUMUR HIDUP").count %></div>
+                <a href="<%= admin_index_url(stat: "Aktif", sch: true, ahli: "Ahli Seumur Hidup")%>">
+                  <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800"><%= @ptnsmmbs.where(tp: "AHLI SEUMUR HIDUP",stat: "Aktif").count %></div>
                 </a>
               </div>
               <div class="col">
@@ -85,8 +85,8 @@
             <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Ahli Institusi</div>
             <div class="row no-gutters align-items-center">
               <div class="col-auto">
-                <a href="https://www.google.com">
-                  <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800"><%= @ptnsmmbs.where(tp: "AHLI INSTITUSI").count %></div>
+                <a href="<%= admin_index_url(stat: "Aktif", sch: true, ahli: "Ahli Institusi")%>">
+                  <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800"><%= @ptnsmmbs.where(tp: "AHLI INSTITUSI",stat: "Aktif").count %></div>
                 </a>
               </div>
               <div class="col">
@@ -108,13 +108,13 @@
 </div>
 
 <%
-  daerah = ["Gombak", "Selayang", "Sepang"]
-  ahli = ["Ahli Biasa", "Ahli Seumur Hidup", "Ahli Institusi", "Ahli Tidak Aktif"]
+  
+  ahli = ["Ahli Biasa", "Ahli Seumur Hidup", "Ahli Institusi"]
   stat = ["Proses Pengesahan","Keahlian Ditolak","Pembayaran Yuran","Aktif","Keahlian Luput","Keahlian Digantung"]
 %>
 
-<%= link_to admin_index_path, class: "badge badge-info shadow-sm", style: "font-size: 15px; font-weight: normal; margin-top: -200px" do %>
-  <i class="fa fa-file-excel"></i> Muat Turun Data #
+<%= link_to mmbxls_path(ids: @ptnsmmbs.ids,format: :xlsx), class: "badge badge-pill badge-info", format: :xlsx, style: "font-size: 15px; font-weight: normal; margin-top: -200px", method: :post do %>
+  <i class="fa fa-file-excel"></i> Muat Turun Data
 <% end %>
 
 
@@ -126,7 +126,7 @@
       <%= form_tag admin_index_path, method: :get, id: "find_kid" do %>
         <%= text_field_tag :sch_str, params[:sch_str], placeholder: "Carian Nama", style: 'text-transform: uppercase' %>
         <%= select_tag :daerah, 
-                    options_for_select(daerah, params[:daerah]), {include_blank: "Semua Daerah"} %>
+                    options_for_select($daerah_ptns, params[:daerah]), {include_blank: "Semua Daerah"} %>
         <%= select_tag :ahli, 
                     options_for_select(ahli, params[:ahli]), {include_blank: "Semua Keahlian"} %>
         <%= select_tag :stat, 
@@ -139,7 +139,9 @@
         <%= link_to admin_index_path, class: "badge badge-danger shadow-sm", style: "font-size: 14px; font-weight: normal" do %>
             <i class="fa fa-sync"></i> Clear
         <% end %>&nbsp
-        <%= link_to "#{@ptnsmmbs.count} data dipaparkan", "#",class: "badge badge-secondary shadow-sm", style: "font-size: 12px; font-weight: normal" %>
+        <% if params[:sch].present? %>
+          <%= link_to "#{@ptnsmmbs.count} data dipaparkan", "#",class: "badge badge-secondary shadow-sm", style: "font-size: 12px; font-weight: normal" %>
+        <% end %>
       <% end %>
       <div>
         

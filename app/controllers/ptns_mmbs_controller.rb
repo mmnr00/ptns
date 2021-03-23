@@ -1,6 +1,16 @@
 class PtnsMmbsController < ApplicationController
 	before_action :set_all
 
+	def mmbxls
+		@ptnsmmbs = PtnsMmb.where(id: params[:ids])
+		respond_to do |format|
+    	#format.html
+    	format.xlsx{
+  								response.headers['Content-Disposition'] = 'attachment; filename="Senarai Ahli PTNS.xlsx"'
+			}
+  	end
+	end
+
 	def bulkupd
 		flash[:success] = "Maklumat Ahli Dikemaskini"
 		mmbs = params[:ans]
@@ -16,6 +26,7 @@ class PtnsMmbsController < ApplicationController
 		@mmb = PtnsMmb.find(params[:id])
 		@inst = true
 		@inst = false unless @mmb.tp == "AHLI INSTITUSI"
+		render action: "mmbprof", layout: "eip"
 	end
 
 	def daftarahli

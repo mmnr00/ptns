@@ -9,7 +9,17 @@
 
 #$acv_res = ENV['acv_kota'].split(',')
 
-$daerah_ptns = ["Gombak", "Selayang", "Sepang"]
+$daerah_ptns = ["Gombak",
+"Hulu Langat",
+"Hulu Selangor",
+"Klang",
+"Kuala Langat",
+"Kuala Selangor", 
+"Shah Alam",
+"Subang Jaya",
+"Damansara",
+"Sepang",
+"Sabak Bernam"]
 
 $ptns_fee = {"AHLI BIASA" => 20, "AHLI INSTITUSI" => 50, "AHLI SEUMUR HIDUP" => 100}
 

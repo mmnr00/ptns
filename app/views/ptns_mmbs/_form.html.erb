@@ -335,10 +335,46 @@
             </div>
             <div class="row">
               <div class="col-sm-8 col-8">
-                <%= f.select :ts_job, options_for_select(["Pengusaha/Pengerusi", "Pengurus/Penyelia", "Pengasuh"], selected: @ptnsmmb.ts_job), 
+                <%= f.select :ts_job, options_for_select(["Penasihat","Pengusaha/Pengerusi", "Pengurus/Penyelia", "Pengasuh"], selected: @ptnsmmb.ts_job), 
                 {include_blank: "SILA PILIH"} %>
               </div>
             </div>
+          </div>
+
+          <div class="form-group"> 
+            <div class="row">
+              <div class="control-label col-sm-8">
+                <i class="fas fa-cloud-upload-alt"></i><strong>PENGESAHAN JAWATAN</strong>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-8 col-12">
+                <% image = @ptnsmmb.fotos.where(foto_name: "JAWATAN").first %>
+                <% 
+                  if image.present? && image.picture.present? 
+                  image.picture.content_type == 'application/pdf' ? (url=image_path('pdf-icon.png')) : (url=image.picture.url)
+                %>
+                  <a href="<%="#{image.picture.url}"%>" target="_blank">
+                    <%= image_tag(url, size: "200x200") if image.picture? %>
+                  </a>
+                  <div class="row">
+                    <div class="col-sm-8 col-5">
+                      <strong><%= link_to "EDIT", edit_foto_path(image.id), class: "btn btn-sm btn-success active" %></strong>
+                    </div>
+                  </div>  
+                <% else %>
+                  <%= f.fields_for :fotos do |h| %>
+                    <div class="row">
+                      <div class="col-sm-8 col-8">
+                        <%= h.hidden_field :foto_name, value: "JAWATAN" %>
+                        <%= h.file_field :picture, accept: 'image/jpeg,image/gif,image/png,application/pdf' %>
+                      </div>
+                    </div>
+                  <% end %>
+                <% end %>
+              </div>
+            </div>
+            <i>Jika anda adalah pengusaha, sila muat naik penyata SSM</i>
           </div>
 
 
@@ -394,41 +430,7 @@
         </div>
       </div>
 
-      <div class="form-group"> 
-        <div class="row">
-          <div class="control-label col-sm-8">
-            <i class="fas fa-cloud-upload-alt"></i><strong>PENGESAHAN JAWATAN</strong>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-sm-8 col-12">
-            <% image = @ptnsmmb.fotos.where(foto_name: "JAWATAN").first %>
-            <% 
-              if image.present? && image.picture.present? 
-              image.picture.content_type == 'application/pdf' ? (url=image_path('pdf-icon.png')) : (url=image.picture.url)
-            %>
-              <a href="<%="#{image.picture.url}"%>" target="_blank">
-                <%= image_tag(url, size: "200x200") if image.picture? %>
-              </a>
-              <div class="row">
-                <div class="col-sm-8 col-5">
-                  <strong><%= link_to "EDIT", edit_foto_path(image.id), class: "btn btn-sm btn-success active" %></strong>
-                </div>
-              </div>  
-            <% else %>
-              <%= f.fields_for :fotos do |h| %>
-                <div class="row">
-                  <div class="col-sm-8 col-8">
-                    <%= h.hidden_field :foto_name, value: "JAWATAN" %>
-                    <%= h.file_field :picture, accept: 'image/jpeg,image/gif,image/png,application/pdf' %>
-                  </div>
-                </div>
-              <% end %>
-            <% end %>
-          </div>
-        </div>
-        <i>Jika anda adalah pengusaha, sila muat naik penyata SSM</i>
-      </div>
+      
 
 
 

@@ -1,0 +1,51 @@
+wb = xlsx_package.workbook
+
+wb.styles do |style|
+  header_1 = style.add_style(sz: 20) 
+  header_2 = style.add_style(sz: 16) 
+  highlight_cell = style.add_style(bg_color: "EFC376",
+                                  border: Axlsx::STYLE_THIN_BORDER,
+                                  sz: 13,
+                                   alignment: { horizontal: :center })
+  border_cell = style.add_style(border: Axlsx::STYLE_THIN_BORDER)  
+
+  wb.add_worksheet(name: "Senarai Ahli PTNS") do |sheet|
+    sheet.add_row ["","Senarai Ahli"]
+    sheet.add_row ["","#{Time.now.strftime('%d-%^b-%Y %I:%M%p')}"]
+    sheet.add_row [""]
+    sheet.add_row ["NO",
+                  "NAME",
+                  "CENTER"]
+    sheet.rows[0].style = header_1
+    sheet.rows[1].style = header_2
+    sheet.rows[3].style = highlight_cell
+    counter = 1
+    row =3
+    @ptnsmmbs.each do |mmb|
+      sheet.add_row [counter, 
+                    mmb.name], style: [nil, border_cell]
+      sheet.rows[row+counter].style = border_cell
+      counter = counter +1
+    end
+  end
+
+  
+
+  
+
+end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

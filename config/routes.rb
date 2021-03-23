@@ -37,6 +37,7 @@ Rails.application.routes.draw do
   get 'sb2_dashboard', to: 'welcomes#sb2_dashboard'
 
   #~PTNSMMB
+  post '/mmbxls', to: 'ptns_mmbs#mmbxls'
   get '/checkmmb', to: 'ptns_mmbs#checkmmb'
   get '/daftarahli', to: 'ptns_mmbs#daftarahli'
   get '/mmbprof', to: 'ptns_mmbs#mmbprof'
