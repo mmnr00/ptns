@@ -201,10 +201,11 @@
                   
                 </td>
                 <td>
-                  
                     <%= h.select :stat, options_for_select(stat, 
                                                           selected: ptm.stat), 
                     {include_blank: "Select"}, {required: true} %>
+
+                    <%= h.text_area :statdl, class: "form-control", style: "margin-top: 10px; font-size: 12px", value: ptm.statdl %>
                 </td>
               </tr>
               

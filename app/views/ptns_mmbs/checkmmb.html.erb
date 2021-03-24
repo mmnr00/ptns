@@ -27,8 +27,14 @@
       <% if !show_card %>
         <%= link_to "Cetak Kad Ahli", checkmmb_path(icf: @mmb.icf, prt: true), class: "badge badge-success", style: "margin-bottom: 5px", :onclick => 'window.print();return false;' %>
       <% end %>
+      <% if @mmb.stat == "Pembayaran Yuran" %>
+        <%= link_to "Buat Bayaran", edit_ptns_mmb_path(id: @mmb.id, icf: @mmb.icf, tp: @mmb.tp), class: "badge badge-pill badge-primary", style: "margin-bottom: 5px" %>
+      <% end %>
     <% end %>
   </div>
+  <% if @mmb.stat != "Aktif" %>
+    <b>Makluman Admin: </b><%= @mmb.statdl %>
+  <% end %>
   <%= render 'ptns_mmbs/mmbcard' unless show_card %>
   <%= render 'ptns_mmbs/prof' unless show_prof %>
   

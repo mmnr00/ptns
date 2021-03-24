@@ -1,5 +1,6 @@
 class PtnsMmb < ApplicationRecord
 	has_many :fotos
+	has_many :payments
 	accepts_nested_attributes_for :fotos
 	before_save :upcase_all
 

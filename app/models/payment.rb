@@ -1,4 +1,5 @@
 class Payment < ApplicationRecord
+	belongs_to :ptns_mmb, optional: true
 	belongs_to :parent, optional: true
 	belongs_to :taska, optional: true
 	belongs_to :teacher, optional: true

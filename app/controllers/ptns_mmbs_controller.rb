@@ -17,6 +17,7 @@ class PtnsMmbsController < ApplicationController
 		mmbs.each do |k,v|
 			pt = PtnsMmb.find(k)
 			pt.stat = v["stat"]
+			pt.statdl = v["statdl"]
 			pt.save
 		end
 		redirect_to request.referrer
