@@ -4,6 +4,27 @@ class ApplicationController < ActionController::Base
 	 require 'roo'
 	 require 'rqrcode'
 
+	def check2_bill(mmb)
+	 	mmb = PtnsMmb.find(mmb)
+	 	mmb.payments.where(paid: false).each do |pmt|
+	 		url_bill = "#{ENV['BILLPLZ_API']}bills/#{pmt.bill_id}"
+      data_billplz = HTTParty.get(url_bill.to_str,
+              :body  => { }.to_json, 
+                          #:callback_url=>  "YOUR RETURN URL"}.to_json,
+              :basic_auth => { :username => "#{ENV['BILLPLZ_APIKEY']}" },
+              :headers => { 'Content-Type' => 'application/json', 'Accept' => 'application/json' })
+      #render json: data_billplz and return
+      data = JSON.parse(data_billplz.to_s)
+      if data["id"].present?
+      	if data["paid"] == true
+      	else
+      		pmt.destroy
+      	end
+      end
+
+		end #end loop
+	end #end loop
+
 	 #def current_taska
 	 	#return unless session[:Taska_id]
 	 	#@current_taska ||= Taska.find(session[:Taska_id])

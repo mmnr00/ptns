@@ -5,9 +5,34 @@ class PaymentsController < ApplicationController
   #ENV['BILLPLZ_APIKEY'] = "6d78d9dd-81ac-4932-981b-75e9004a4f11"
   before_action :set_all
 
+  def update
+    @payment = Payment.where(bill_id: "#{params[:billplz][:id]}").last
+    
+    if @payment.present?
+      @payment.paid = params[:billplz][:paid]
+      @payment.pdt = params[:billplz][:paid_at]
+      @payment.save
+
+      @mmb = @payment.ptns_mmb
+      @mmb.stat = "Aktif"
+      @mmb.save
+
+      flash[:success] = "Terima kasih. Bayaran Anda Diterima. Keahlian Anda Telah Aktif!"
+      redirect_to checkmmb_path(icf: @mmb.icf)
+    else
+    end
+
+  end
+
   def crtbl
+    #check previous payment
+    check2_bill(params[:mmb])
     #set payment parameter
     @mmb = PtnsMmb.find(params[:mmb])
+    if @mmb.stat == "Aktif"
+      flash[:danger] = "Akaun ada telah Aktif!"
+      redirect_to request.referrer and return
+    end
     desc = "Yuran #{@mmb.tp} (RM #{$ptns_fee[@mmb.tp]})"
     amt = $ptns_fee[@mmb.tp]
     if @mmb.newreg
@@ -19,7 +44,7 @@ class PaymentsController < ApplicationController
     data_billplz = HTTParty.post(url_bill.to_str,
             :body  => { :collection_id => "t_dps16r", 
                         :email=> @mmb.email,
-                        :name=> "Yuran Keahlian PTNS bagi #{@mmb.name} untuk tahun #{Time.now.year}", 
+                        :name=> "Yuran Keahlian PTNS bagi #{@mmb.name} (ID: #{@mmb.id}) untuk tahun #{Time.now.year}", 
                         :amount=>  amt*100,
                         :callback_url=> "#{ENV['ROOT_URL_BILLPLZ']}payments/update",
                         :redirect_url=> "#{ENV['ROOT_URL_BILLPLZ']}payments/update",
@@ -504,24 +529,7 @@ class PaymentsController < ApplicationController
     end #END MULTIPLE BILLS
   end
 
-  def update
-    @payment = Payment.where(bill_id: "#{params[:billplz][:id]}").last
-    
-    if @payment.present?
-      @payment.paid = params[:billplz][:paid]
-      @payment.pdt = params[:billplz][:paid_at]
-      @payment.save
-
-      @mmb = @payment.ptns_mmb
-      @mmb.stat = "Aktif"
-      @mmb.save
-
-      flash[:success] = "Terima kasih. Bayaran Anda Diterima. Keahlian Anda Telah Aktif!"
-      redirect_to checkmmb_path(icf: @mmb.icf)
-    else
-    end
-
-  end
+  
 
   def crt_pmt
     @taska = Taska.find(params[:tsk])
