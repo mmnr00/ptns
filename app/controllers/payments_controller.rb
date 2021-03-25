@@ -5,6 +5,44 @@ class PaymentsController < ApplicationController
   #ENV['BILLPLZ_APIKEY'] = "6d78d9dd-81ac-4932-981b-75e9004a4f11"
   before_action :set_all
 
+  def crtbl
+    #set payment parameter
+    @mmb = PtnsMmb.find(params[:mmb])
+    desc = "Yuran #{@mmb.tp} (RM #{$ptns_fee[@mmb.tp]})"
+    amt = $ptns_fee[@mmb.tp]
+    if @mmb.newreg
+      desc = desc + " + " + "Yuran Pendaftaran (RM 10)"
+      amt = amt + 10
+    end
+    #create billplz
+    url_bill = "#{ENV['BILLPLZ_API']}bills"
+    data_billplz = HTTParty.post(url_bill.to_str,
+            :body  => { :collection_id => "t_dps16r", 
+                        :email=> @mmb.email,
+                        :name=> "Yuran Keahlian PTNS bagi #{@mmb.name} untuk tahun #{Time.now.year}", 
+                        :amount=>  amt*100,
+                        :callback_url=> "#{ENV['ROOT_URL_BILLPLZ']}payments/update",
+                        :redirect_url=> "#{ENV['ROOT_URL_BILLPLZ']}payments/update",
+                        :description=>"#{desc}"}.to_json, 
+                        #:callback_url=>  "YOUR RETURN URL"}.to_json,
+            :basic_auth => { :username => ENV['BILLPLZ_APIKEY'] },
+            :headers => { 'Content-Type' => 'application/json', 'Accept' => 'application/json' })
+    #render json: data_billplz and return
+    data = JSON.parse(data_billplz.to_s)
+    if data["id"].present?
+      Payment.create(bill_id: "#{data["id"]}",
+                    bill_year: Time.now.year,
+                    paid: false,
+                    amount: amt,
+                    ptns_mmb_id: @mmb.id)
+      redirect_to "#{ENV['BILLPLZ_URL']}bills/#{data["id"]}"
+    else
+      flash[:danger] = "Pembayaran tidak berjaya. Sila cuba lagi"
+      redirect_to request.referrer
+    end
+
+  end
+
   def upd_bill
     check_bill(params[:id])
     flash[:notice] = "Bills Updated"
@@ -467,121 +505,20 @@ class PaymentsController < ApplicationController
   end
 
   def update
-    @payments = Payment.where(bill_id2: "#{params[:billplz][:id]}")
-    arr_pmt = [] # [0] is id, [1] is list of bills
-    arr_pmt << params[:billplz][:id]
-    arr_pmt << []
-    if @payments.present?
-      @cls = @payments.first.classroom
-      @payments.each do |bill|
-        bill.paid = params[:billplz][:paid]
-        bill.pdt = params[:billplz][:paid_at]
-        bill.mtd = "BILLPLZ via #{params[:billplz][:id]}"
-        bill.save
-        arr_pmt[1] << bill.id
-      end
-      flash[:success] = "Payment Successful"
-      unq = (0...20).map { ('a'..'z').to_a[rand(26)] }.join
-      redirect_to list_bill_path(cls: @cls.unq, redr: unq)
+    @payment = Payment.where(bill_id: "#{params[:billplz][:id]}").last
+    
+    if @payment.present?
+      @payment.paid = params[:billplz][:paid]
+      @payment.pdt = params[:billplz][:paid_at]
+      @payment.save
+
+      @mmb = @payment.ptns_mmb
+      @mmb.stat = "Aktif"
+      @mmb.save
+
+      flash[:success] = "Terima kasih. Bayaran Anda Diterima. Keahlian Anda Telah Aktif!"
+      redirect_to checkmmb_path(icf: @mmb.icf)
     else
-      @bill = Payment.where(bill_id: "#{params[:billplz][:id]}").first
-      if @bill.present?
-
-        @bill.paid = params[:billplz][:paid]
-        @bill.pdt = params[:billplz][:paid_at]
-        @bill.mtd = "BILLPLZ"
-        
-        if @bill.paid
-          @bill.save
-          arr_pmt[1] << @bill.id
-          flash[:success] = "Bill was successfully paid"
-        else
-          flash[:danger] = "Bill was not paid due to bank rejection. Please try again"
-        end
-        unq = (0...20).map { ('a'..'z').to_a[rand(26)] }.join
-        redirect_to list_bill_path(cls: @bill.classroom.unq, redr: unq)
-
-      end
-    end #end payment present
-
-    #Send email notification
-    if arr_pmt[1].present?# && (Rails.env == "production")
-      pm = Payment.find(arr_pmt[1][0])
-      @taska = pm.taska
-      cls = pm.classroom
-
-      #loop thru arr_pmt
-      list_bill = ""
-      tot_bill = 0.00
-      arr_pmt[1].each do |n|
-        pym = Payment.find(n)
-        list_bill = list_bill + 
-        "<li>
-        #{pym.description} (ID: #{pym.bill_id}) - RM #{pym.amount}
-        </li>"
-        tot_bill = tot_bill + pym.amount
-      end
-
-      tot_bill = tot_bill - 1.5*(arr_pmt[1].count)
-
-      #add content
-      msg = "<html>
-      <body>
-      Payment received from <b>#{cls.description} #{cls.classroom_name}</b><br><br>
-
-      Bill List as below:
-      <ul>
-      #{list_bill}
-      </ul><br><br>
-
-      <b>TAMAN KITA TANGGUNGJAWAB KITA BERSAMA</b>
-
-      </body>
-      </html>"
-
-      #sending email
-      mail = SendGrid::Mail.new
-      mail.from = SendGrid::Email.new(email: 'billing@kota.my', name: "KOTA MY")
-      mail.subject = "Payment Notification from #{cls.description} #{cls.classroom_name} (#{@taska.name})"
-      #Personalisation, add cc
-      personalization = SendGrid::Personalization.new
-      em = pm.kid_bill.extra[2]
-      if em.blank? || (em == @taska.email.upcase)
-      em = "bill@kota.my"
-      end
-      #### OLD EMAIL
-      # @taska.admins.where.not(id: 1).each do |adm|
-      #   personalization.add_to(SendGrid::Email.new(email: "#{adm.email}"))
-      # end 
-      # personalization.add_bcc(SendGrid::Email.new(email: "simplysolutionplt@gmail.com"))
-      # personalization.add_bcc(SendGrid::Email.new(email: "admin@kidcare.my"))
-      # #personalization.add_cc(SendGrid::Email.new(email: "#{@taska.email}"))
-
-      #### NEW EMAIL
-      email_array = []
-      @taska.admins.each do |adm|
-        (email_array.include? adm.email.upcase) ? email_array : email_array<<adm.email.upcase
-      end 
-
-      if cls.tn_email? 
-        (email_array.include? cls.tn_email.upcase) ? email_array : email_array<<cls.tn_email.upcase
-      end
-
-      if cls.own_email? 
-        (email_array.include? cls.own_email.upcase) ? email_array : email_array<<cls.own_email.upcase
-      end
-
-      email_array.each do |eml|
-        personalization.add_to(SendGrid::Email.new(email: "#{eml}"))
-      end 
-
-      mail.add_personalization(personalization)
-      mail.add_content(SendGrid::Content.new(type: 'text/html', value: "#{msg}"))
-      sg = SendGrid::API.new(api_key: ENV['SENDGRID_PASSWORD'])
-      @response = sg.client.mail._('send').post(request_body: mail.to_json)   
-      puts email_array
-      puts @response
-
     end
 
   end
