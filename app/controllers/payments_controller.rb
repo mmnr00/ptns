@@ -26,10 +26,10 @@ class PaymentsController < ApplicationController
 
   def crtbl
     #check previous payment
-    check2_bill(params[:mmb])
+    acv = check2_bill(params[:mmb])
     #set payment parameter
     @mmb = PtnsMmb.find(params[:mmb])
-    if @mmb.stat == "Aktif"
+    if @mmb.stat == "Aktif" || acv
       flash[:danger] = "Akaun ada telah Aktif!"
       redirect_to request.referrer and return
     end
@@ -60,7 +60,8 @@ class PaymentsController < ApplicationController
                     paid: false,
                     amount: amt,
                     ptns_mmb_id: @mmb.id)
-      redirect_to "#{ENV['BILLPLZ_URL']}bills/#{data["id"]}"
+      puts "masuk"
+      redirect_to "#{ENV['BILLPLZ_URL']}bills/#{data["id"]}" and return
     else
       flash[:danger] = "Pembayaran tidak berjaya. Sila cuba lagi"
       redirect_to request.referrer
@@ -1566,6 +1567,8 @@ class PaymentsController < ApplicationController
 
 
   private
+
+  
 
   def set_all
     @teacher = current_teacher

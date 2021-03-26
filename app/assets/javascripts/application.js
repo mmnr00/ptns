@@ -20,15 +20,6 @@
 //= require turbolinks
 //= require turbolinks-compatibility
 
-// REVEAL
-//= require hoverIntent
-//= require isotope.pkgd
-//= require jquery.sticky
-//= require owl.carousel
-//= require superfish.min
-//= require venobox
-//= require wow
-//= require reveal-js
 
 // require js_sb-admin/sb-admin.min
 //= require sb-admin-2
