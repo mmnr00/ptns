@@ -21,6 +21,7 @@ class ApplicationController < ActionController::Base
         	pmt.pdt = data["paid_at"]
         	pmt.save
         	mmb.stat = "Aktif"
+        	mmb.newreg = false
         	mmb.save
         	return true 
         else

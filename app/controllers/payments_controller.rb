@@ -15,6 +15,7 @@ class PaymentsController < ApplicationController
 
       @mmb = @payment.ptns_mmb
       @mmb.stat = "Aktif"
+      @mmb.newreg = false
       @mmb.save
 
       flash[:success] = "Terima kasih. Bayaran Anda Diterima. Keahlian Anda Telah Aktif!"
