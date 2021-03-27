@@ -75,8 +75,9 @@ class PtnsMmbsController < ApplicationController
 			redirect_to root_path and return
 		end
 		if (pt=PtnsMmb.where(icf: params[:icf])).present?
-			@mmb = pt.last
-			acv = check2_bill(@mmb.id)
+			mmb = pt.last
+			acv = check2_bill(mmb.id)
+			@mmb = PtnsMmb.find(mmb.id)
 			@exs = true
 			@inst = true
 			@inst = false unless @mmb.tp == "AHLI INSTITUSI"
