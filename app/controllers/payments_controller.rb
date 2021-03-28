@@ -30,7 +30,7 @@ class PaymentsController < ApplicationController
     acv = check2_bill(params[:mmb])
     #set payment parameter
     @mmb = PtnsMmb.find(params[:mmb])
-    if @mmb.stat == "Aktif" || acv
+    if @mmb.stat == "Aktif" || acv == true
       flash[:danger] = "Akaun ada telah Aktif!"
       puts "ACV=#{acv}, Aktif=#{@mmb.stat}"
       redirect_to request.referrer and return
@@ -46,7 +46,7 @@ class PaymentsController < ApplicationController
     data_billplz = HTTParty.post(url_bill.to_str,
             :body  => { :collection_id => "t_dps16r", 
                         :email=> @mmb.email,
-                        :name=> "Yuran Keahlian PTNS bagi #{@mmb.name} (ID: #{@mmb.id}) untuk tahun #{Time.now.year}", 
+                        :name=> "#{@mmb.name} (ID: #{@mmb.id})", 
                         :amount=>  amt*100,
                         :callback_url=> "#{ENV['ROOT_URL_BILLPLZ']}payments/update",
                         :redirect_url=> "#{ENV['ROOT_URL_BILLPLZ']}payments/update",
