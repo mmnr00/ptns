@@ -32,6 +32,8 @@ class PaymentsController < ApplicationController
     @mmb = PtnsMmb.find(params[:mmb])
     if @mmb.stat == "Aktif" || acv
       flash[:danger] = "Akaun ada telah Aktif!"
+      puts acv
+      puts "MASUK SINIIiiiiiiii#---------------))))))))"
       redirect_to request.referrer and return
     end
     desc = "Yuran #{@mmb.tp} (RM #{$ptns_fee[@mmb.tp]})"
