@@ -46,7 +46,7 @@ class PaymentsController < ApplicationController
     data_billplz = HTTParty.post(url_bill.to_str,
             :body  => { :collection_id => "t_dps16r", 
                         :email=> @mmb.email,
-                        :name=> "#{@mmb.name} (ID: #{@mmb.id})", 
+                        :name=> "#{@mmb.name} (IC: #{@mmb.icf})", 
                         :amount=>  amt*100,
                         :callback_url=> "#{ENV['ROOT_URL_BILLPLZ']}payments/update",
                         :redirect_url=> "#{ENV['ROOT_URL_BILLPLZ']}payments/update",
