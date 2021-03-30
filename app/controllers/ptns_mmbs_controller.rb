@@ -67,7 +67,7 @@ class PtnsMmbsController < ApplicationController
 			send_email(subject,to,cc1,cc2,body)
 			flash[:notice] = "Pendaftaran Berjaya dan Sedang Diproses untuk Proses Pengesahan oleh Admin. Anda boleh membuat Semakan Pendaftaran Selepas 24 Jam."
 		end	
-		#redirect_to checkmmb_path(icf: @ptnsmmb.icf)
+		redirect_to checkmmb_path(icf: @ptnsmmb.icf)
 	end
 
 	def edit
