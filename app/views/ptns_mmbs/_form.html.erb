@@ -117,7 +117,7 @@
                 <div class="row">
                   <div class="col-sm-8 col-8">
                     <%= h.hidden_field :foto_name, value: "PTNS MMB" %>
-                    <%= h.file_field :picture, accept: 'image/jpeg,image/gif,image/png' %>
+                    <%= h.file_field :picture, accept: 'image/jpeg,image/gif,image/png', required: true %>
                   </div>
                 </div>
               <% end %>
@@ -367,7 +367,7 @@
                     <div class="row">
                       <div class="col-sm-8 col-8">
                         <%= h.hidden_field :foto_name, value: "JAWATAN" %>
-                        <%= h.file_field :picture, accept: 'image/jpeg,image/gif,image/png,application/pdf' %>
+                        <%= h.file_field :picture, accept: 'image/jpeg,image/gif,image/png,application/pdf', required: true %>
                       </div>
                     </div>
                   <% end %>
@@ -407,7 +407,7 @@
                 <div class="row">
                   <div class="col-sm-8 col-8">
                     <%= h.hidden_field :foto_name, value: "SIJIL JKM" %>
-                    <%= h.file_field :picture, accept: 'image/jpeg,image/gif,image/png,application/pdf' %>
+                    <%= h.file_field :picture, accept: 'image/jpeg,image/gif,image/png,application/pdf', required: true %>
                   </div>
                 </div>
               <% end %>

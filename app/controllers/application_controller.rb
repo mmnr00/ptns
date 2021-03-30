@@ -1,8 +1,37 @@
 class ApplicationController < ActionController::Base
-	 before_action :configure_permitted_parameters, if: :devise_controller?
-	 protect_from_forgery prepend: true
-	 require 'roo'
-	 require 'rqrcode'
+  before_action :configure_permitted_parameters, if: :devise_controller?
+  protect_from_forgery prepend: true
+  require 'roo'
+  require 'rqrcode'
+
+  def send_email(subject,to,cc1,cc2,body)
+    mail = SendGrid::Mail.new
+    mail.from = SendGrid::Email.new(email: "admin@ptns.my", name: "Persatuan Taska Negeri Selangor")
+    mail.subject = "#{subject}"
+    #Personalisation, add cc
+    personalization = SendGrid::Personalization.new
+    personalization.add_to(SendGrid::Email.new(email: "#{to}"))
+    if cc1.present?
+      personalization.add_cc(SendGrid::Email.new(email: "#{cc1}"))
+    end
+    if cc2.present?
+      personalization.add_cc(SendGrid::Email.new(email: "#{cc2}"))
+    end
+    #personalization.add_bcc(SendGrid::Email.new(email: "mmnr00@gmail.com"))
+    mail.add_personalization(personalization)
+    #add content
+    msg = "<html>
+            <body>
+              #{body}
+            </body>
+          </html>"
+    #sending email
+    mail.add_content(SendGrid::Content.new(type: 'text/html', value: "#{msg}"))
+    sg = SendGrid::API.new(api_key: ENV['SENDGRID_PASSWORD'])
+    @response = sg.client.mail._('send').post(request_body: mail.to_json)
+    #render json: @response and return
+    puts @response
+  end
 
 	def check2_bill(mmb)
     mmb = PtnsMmb.find(mmb)

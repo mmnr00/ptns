@@ -46,9 +46,28 @@ class PtnsMmbsController < ApplicationController
 			@ptnsmmb.save
 			@ptnsmmb.mmbid = "PTNS-#{idh[@ptnsmmb.tp]}-#{@ptnsmmb.id.to_s.rjust(4,"0")}"
 			@ptnsmmb.save
-			flash[:notice] = "PENDAFTARAN BERJAYA. TERIMA KASIH. SILA IKUTI ARAHAN SETERUSNYA"
+			#SEND EMAIL
+			url = edit_ptns_mmb_url(id: @ptnsmmb.id)
+			puts url
+			subject = "Pendaftaran #{@ptnsmmb.name} Diterima"
+			to = @ptnsmmb.email
+			cc1 = ENV['CC1']
+			cc2 = ENV['CC2']
+			body = "
+				Terima kasih kerana mendaftar sebagai ahli <b>Persatuan Taska Negeri Selangor</b> <br><br>
+				Pihak kami telah menerima pendaftaran anda dan akan menjalankan proses verifikasi.
+				Sila semak semula status keahlian anda selepas 24 Jam. <br><br>
+				Untuk sebarang pertanyaan, sila hubungi Setiausaha Kehormat PTNS.<br><br>
+
+				Untuk kemaskini maklumat pendaftaran anda, sila <a href='#{url}'>KLIK DISINI</a><br><br>
+
+				Terima kasih. 
+
+			"
+			send_email(subject,to,cc1,cc2,body)
+			flash[:notice] = "Pendaftaran Berjaya dan Sedang Diproses untuk Proses Pengesahan oleh Admin. Anda boleh membuat Semakan Pendaftaran Selepas 24 Jam."
 		end	
-		redirect_to checkmmb_path(icf: @ptnsmmb.icf)
+		#redirect_to checkmmb_path(icf: @ptnsmmb.icf)
 	end
 
 	def edit

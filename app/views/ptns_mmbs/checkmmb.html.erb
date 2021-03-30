@@ -28,7 +28,7 @@
         <%= link_to "Cetak Kad Ahli", checkmmb_path(icf: @mmb.icf, prt: true), class: "badge badge-success", style: "margin-bottom: 5px", :onclick => 'window.print();return false;' %>
       <% end %>
       <% if @mmb.stat == "Pembayaran Yuran" %>
-        <%= link_to "Buat Bayaran", crtbl_path(mmb: @mmb.id), class: "badge badge-pill badge-primary", style: "margin-bottom: 5px" %>
+        <%= link_to "Buat Bayaran", crtbl_path(mmb: @mmb.id), class: "badge badge-pill badge-danger", style: "margin-bottom: 5px; font-size: 15px" %>
       <% end %>
     <% end %>
   </div>
