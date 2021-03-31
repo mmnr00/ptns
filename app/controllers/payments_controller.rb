@@ -44,7 +44,7 @@ class PaymentsController < ApplicationController
     #create billplz
     url_bill = "#{ENV['BILLPLZ_API']}bills"
     data_billplz = HTTParty.post(url_bill.to_str,
-            :body  => { :collection_id => "t_dps16r", 
+            :body  => { :collection_id => ENV["PTNS_BILL"], 
                         :email=> @mmb.email,
                         :name=> "#{@mmb.name} (IC: #{@mmb.icf})", 
                         :amount=>  amt*100,
