@@ -18,6 +18,11 @@ class PtnsMmbsController < ApplicationController
 			pt = PtnsMmb.find(k)
 			pt.stat = v["stat"]
 			pt.statdl = v["statdl"]
+			if v["newreg"] == "Pendaftaran Baru"
+				pt.newreg = true
+			else
+				pt.newreg = false
+			end
 			pt.save
 		end
 		redirect_to request.referrer

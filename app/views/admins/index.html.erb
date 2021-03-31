@@ -203,7 +203,18 @@
                 <td>
                     <%= h.select :stat, options_for_select(stat, 
                                                           selected: ptm.stat), 
-                    {include_blank: "Select"}, {required: true} %>
+                    {include_blank: ""}, {required: true} %>
+                    <div style="margin-bottom: 5px"></div>
+                    <%
+                      if ptm.newreg
+                        nwr = "Pendaftaran Baru"
+                      else
+                        nwr = "Ahli Sedia Ada"
+                      end
+                    %>
+                    <%= h.select :newreg, options_for_select(["Pendaftaran Baru","Ahli Sedia Ada"], 
+                                                          selected: nwr), 
+                    {include_blank: ""}, {required: true} %>
 
                     <%= h.text_area :statdl, class: "form-control", style: "margin-top: 10px; font-size: 12px", value: ptm.statdl %>
                 </td>
