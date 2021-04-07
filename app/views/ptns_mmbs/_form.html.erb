@@ -18,6 +18,12 @@
 
   akf = 1
 
+  if @ptnsmmb.icf.present?
+    icf = @ptnsmmb.icf
+  else
+    icf = params[:icf]
+  end
+
 %>
 
 <div class='container bg-light'>
@@ -46,7 +52,7 @@
         </div>
         <div class="row">
           <div class="col-sm-8 col-12">
-            <%= f.text_field :icf, class: "form-control", placeholder: "YOUR FULL NAME AS PER IC", autofocus: true, readonly: true, value: params[:icf] %>
+            <%= f.text_field :icf, class: "form-control", placeholder: "YOUR FULL NAME AS PER IC", autofocus: true, readonly: true, value: icf %>
           </div>
         </div>
         Pastikan No yang Dipaparkan Adalah Tepat

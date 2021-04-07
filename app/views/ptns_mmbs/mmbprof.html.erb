@@ -1,1 +1,7 @@
+<%= link_to "Cetak/Muat Turun", root_path, class: "badge badge-pill badge-info", style: "font-size: 12px; margin-top: 10px", :onclick => 'window.print();return false;' %>
+
+<%= link_to "Kemaskini Maklumat", edit_ptns_mmb_url(id: @mmb.id), class: "badge badge-pill badge-warning", style: "font-size: 12px" %>
+
+<br>
+
 <%= render 'ptns_mmbs/prof' %>

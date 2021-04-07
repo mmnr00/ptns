@@ -86,7 +86,12 @@ class PtnsMmbsController < ApplicationController
 			# @ptnsmmb.icf=newic
 			@ptnsmmb.save
 			flash[:notice] = "Maklumat anda telah dikemaskini"
-			redirect_to checkmmb_path(icf: @ptnsmmb.icf)
+			if @admin
+				redirect_to mmbprof_path(id: @ptnsmmb.id)
+			else
+				redirect_to checkmmb_path(icf: @ptnsmmb.icf)
+			end
+			
 			
 		else
 			render 'edit'
