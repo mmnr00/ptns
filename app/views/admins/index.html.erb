@@ -194,12 +194,16 @@
                     <%= link_to "SIJIL JKM", ft.url, target: "_blank" %>
                   <% else %>
                     <i>Tiada Sijil JKM</i>
-                  <% end %><br>
-                  <% if (ft=ptm.fotos.where(foto_name: "JAWATAN").first.picture).present? %>
-                    <%= link_to "PENGESAHAN JAWATAN", ft.url, target: "_blank" %>
-                  <% else %>
-                    <i>Tiada Pengesahan Jawatan</i>
-                  <% end %><br>
+                  <% end %>
+                  <% if ptm.tp != "AHLI INSTITUSI" %>
+                    <br>
+                    <% if (ft=ptm.fotos.where(foto_name: "JAWATAN").first.picture).present? %>
+                      <%= link_to "PENGESAHAN JAWATAN", ft.url, target: "_blank" %>
+                    <% else %>
+                      <i>Tiada Pengesahan Jawatan</i>
+                    <% end %>
+                  <% end %>
+                  <br>
                   
                 </td>
                 <td>

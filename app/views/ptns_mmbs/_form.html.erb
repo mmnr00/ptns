@@ -16,6 +16,12 @@
     addr = "ALAMAT KEDIAMAN ANDA"
   end 
 
+  if @ptnsmmb.tp.present?
+    tpf = @ptnsmmb.tp
+  else
+    tpf = params[:tp]
+  end
+
   akf = 1
 
   if @ptnsmmb.icf.present?
@@ -442,7 +448,7 @@
 
 
 
-      <%= f.hidden_field :tp, value: params[:tp] %>
+      <%= f.hidden_field :tp, value: tpf %>
 
 
       <!-- SUBMIT BUTTON -->
