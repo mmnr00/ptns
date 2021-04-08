@@ -178,6 +178,9 @@
                 <td>
                   <%= link_to ptm.name, mmbprof_path(id: ptm.id), target: "_blank" %><br>
                   (<%= ptm.icf %>)
+                  <% if ptm.stat == "Aktif" %><br>
+                    <%= link_to "Kad Ahli", checkmmb_path(icf: ptm.icf), class: "badge badge-info shadow-sm", style: "font-size: 12px; font-weight: normal", target: "_blank" %>
+                  <% end %>
                 </td>
                 <td>
                   <%= "#{ptm.tp}" %><br>
