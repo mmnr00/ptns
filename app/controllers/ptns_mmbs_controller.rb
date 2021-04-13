@@ -1,5 +1,42 @@
 class PtnsMmbsController < ApplicationController
 	before_action :set_all
+	require 'json'
+
+	def upld_mmb
+		xlsx = Roo::Spreadsheet.open(params[:file])
+    header = xlsx.row(xlsx.first_row)
+    ((xlsx.first_row+1)..(xlsx.last_row)).each do |n|
+    	row = Hash[[header, xlsx.row(n)].transpose]
+    	dt = row["MYKAD"].to_s
+
+    	if PtnsMmb.where(icf: dt).blank?
+      
+	      
+	      @mmb = PtnsMmb.new
+
+	      @mmb.name = row["NAMA"]
+	      @mmb.icf = row["MYKAD"]
+	      @mmb.mmb = row["DAERAH"]
+	      dt = row["MYKAD"].to_s
+	      if bod = Date.new("19#{dt[0..1]}".to_i,dt[2..3].to_i,dt[4..5].to_i)
+					@mmb.dob = bod
+				end
+				puts row["NAMA"]
+				@mmb.stat = "Proses Pengesahan"
+				@mmb.expire = Date.today
+				@mmb.tp = "AHLI SEUMUR HIDUP"
+				@mmb.gender = "Perempuan"
+				@mmb.newreg = false
+	      @mmb.save
+	      Foto.create(foto_name: "PTNS MMB", ptns_mmb_id: @mmb.id)
+	      Foto.create(foto_name: "JAWATAN", ptns_mmb_id: @mmb.id)
+	      Foto.create(foto_name: "SIJIL JKM", ptns_mmb_id: @mmb.id)
+	      @mmb.mmbid = "PTNS-AH-#{@mmb.id.to_s.rjust(4,"0")}"
+	      @mmb.save
+	    end #no duplicate
+    end
+    redirect_to admin_index_path
+	end
 
 	def mmbxls
 		@ptnsmmbs = PtnsMmb.where(id: params[:ids])

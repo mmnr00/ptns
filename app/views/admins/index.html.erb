@@ -1,7 +1,5 @@
 <div class="row">
 
-  
-
   <!-- Earnings (Monthly) Card Example -->
   <div class="col-lg-3 col-md-4 col-sm-6 col-xs-3" style="padding-bottom: 10px">
     <div class="card border-left-primary shadow h-100 py-2">
@@ -117,6 +115,11 @@
 
 <% link_to mmbxls_path(ids: @ptnsmmbs.ids,format: :xlsx), class: "badge badge-pill badge-info", format: :xlsx, style: "font-size: 15px; font-weight: normal; margin-top: -200px", method: :post do %>
   <i class="fa fa-file-excel"></i> Muat Turun Data
+<% end %>
+
+<%= form_tag upld_mmb_path, multipart: true do %>
+  <%= file_field_tag :file %>
+  <%= submit_tag "Uploads" %>
 <% end %>
 
 

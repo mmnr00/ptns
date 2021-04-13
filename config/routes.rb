@@ -42,6 +42,7 @@ Rails.application.routes.draw do
   get '/daftarahli', to: 'ptns_mmbs#daftarahli'
   get '/mmbprof', to: 'ptns_mmbs#mmbprof'
   post '/bulkupd', to: 'ptns_mmbs#bulkupd'
+  post '/upld_mmb', to: 'ptns_mmbs#upld_mmb'
 
   ##OLD PTNS
   get '/daftarptns', to: 'ptns_mmbs#new', as: 'new_ptns_mmb'

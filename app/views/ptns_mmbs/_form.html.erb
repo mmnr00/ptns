@@ -113,12 +113,9 @@
           <div class="col-sm-8 col-12">
             <% image = @ptnsmmb.fotos.where(foto_name: "PTNS MMB").first %>
             <% 
-              if image.present? && image.picture.present? 
-              image.picture.content_type == 'application/pdf' ? (url=image_path('pdf-icon.png')) : (url=image.picture.url)
+              if image.present?
             %>
-              <a href="<%="#{image.picture.url}"%>" target="_blank">
-                <%= image_tag(url, size: "200x200") if image.picture? %>
-              </a>
+              <%= image_tag(url, size: "200x200") if image.picture? %>
               <div class="row">
                 <div class="col-sm-8 col-5">
                   <strong><%= link_to "EDIT", edit_foto_path(image.id), class: "btn btn-sm btn-success active" %></strong>
@@ -362,13 +359,8 @@
             <div class="row">
               <div class="col-sm-8 col-12">
                 <% image = @ptnsmmb.fotos.where(foto_name: "JAWATAN").first %>
-                <% 
-                  if image.present? && image.picture.present? 
-                  image.picture.content_type == 'application/pdf' ? (url=image_path('pdf-icon.png')) : (url=image.picture.url)
-                %>
-                  <a href="<%="#{image.picture.url}"%>" target="_blank">
-                    <%= image_tag(url, size: "200x200") if image.picture? %>
-                  </a>
+                <%  if image.present? %>
+                  <%= image_tag(url, size: "200x200") if image.picture? %>
                   <div class="row">
                     <div class="col-sm-8 col-5">
                       <strong><%= link_to "EDIT", edit_foto_path(image.id), class: "btn btn-sm btn-success active" %></strong>
@@ -403,12 +395,9 @@
           <div class="col-sm-8 col-12">
             <% image = @ptnsmmb.fotos.where(foto_name: "SIJIL JKM").first %>
             <% 
-              if image.present? && image.picture.present? 
-              image.picture.content_type == 'application/pdf' ? (url=image_path('pdf-icon.png')) : (url=image.picture.url)
+              if image.present?
             %>
-              <a href="<%="#{image.picture.url}"%>" target="_blank">
-                <%= image_tag(url, size: "200x200") if image.picture? %>
-              </a>
+              <%= image_tag(url, size: "200x200") if image.picture? %>
               <div class="row">
                 <div class="col-sm-8 col-5">
                   <strong><%= link_to "EDIT", edit_foto_path(image.id), class: "btn btn-sm btn-success active" %></strong>
