@@ -121,6 +121,9 @@ class PtnsMmbsController < ApplicationController
 		if @ptnsmmb.update(ptnsmmb_params)
 			# newic="#{@ptnsmmb.ic1}#{@ptnsmmb.ic2}#{@ptnsmmb.ic3}"
 			# @ptnsmmb.icf=newic
+			if @ptnsmmb.stat == "Keahlian Luput"
+				@ptnsmmb.stat = "Pembayaran Yuran"
+			end
 			@ptnsmmb.save
 			flash[:notice] = "Maklumat anda telah dikemaskini"
 			if @admin
