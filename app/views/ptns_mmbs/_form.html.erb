@@ -360,7 +360,10 @@
             <div class="row">
               <div class="col-sm-8 col-12">
                 <% image = @ptnsmmb.fotos.where(foto_name: "JAWATAN").first %>
-                <%  if image.present? %>
+                <%  
+                  if image.present? 
+                  url = image.picture.url
+                %>
                   <%= image_tag(url, size: "200x200") if image.picture? %>
                   <div class="row">
                     <div class="col-sm-8 col-5">
@@ -397,6 +400,7 @@
             <% image = @ptnsmmb.fotos.where(foto_name: "SIJIL JKM").first %>
             <% 
               if image.present?
+              url = image.picture.url
             %>
               <%= image_tag(url, size: "200x200") if image.picture? %>
               <div class="row">
