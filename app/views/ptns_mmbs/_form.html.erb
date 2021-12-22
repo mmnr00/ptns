@@ -113,7 +113,8 @@
           <div class="col-sm-8 col-12">
             <% image = @ptnsmmb.fotos.where(foto_name: "PTNS MMB").first %>
             <% 
-              if image.present?
+              if image.present? 
+              url = image.picture.url
             %>
               <%= image_tag(url, size: "200x200") if image.picture? %>
               <div class="row">
