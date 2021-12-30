@@ -1,7 +1,7 @@
 desc "mmb_expr"
 task mmb_expr: :environment do
 
-	PtnsMmb.all.where(id: 206).each do |ptn|
+	PtnsMmb.all.where(stat: "Aktif").each do |ptn|
 	#change status
 	ptn.statdl = nil
 	ptn.stat = "Keahlian Luput"
