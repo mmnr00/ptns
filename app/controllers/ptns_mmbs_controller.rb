@@ -122,7 +122,11 @@ class PtnsMmbsController < ApplicationController
 			# newic="#{@ptnsmmb.ic1}#{@ptnsmmb.ic2}#{@ptnsmmb.ic3}"
 			# @ptnsmmb.icf=newic
 			if @ptnsmmb.stat == "Keahlian Luput"
-				@ptnsmmb.stat = "Pembayaran Yuran"
+				if @ptnsmmb.tp == "AHLI SEUMUR HIDUP"
+					@ptnsmmb.stat = "Aktif"
+				else
+					@ptnsmmb.stat = "Pembayaran Yuran"
+				end
 			end
 			@ptnsmmb.save
 			flash[:notice] = "Maklumat anda telah dikemaskini"
