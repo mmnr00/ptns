@@ -1,10 +1,12 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '2.5.1'
+# ruby '2.5.1'
+# gem 'rails', '~> 5.2.1'
 
+ruby '3.0.0'
+gem 'rails', '~> 6.1.7'
 
-gem 'rails', '~> 5.2.1'
 gem 'sass', '~> 3.5.2'
 gem 'roo'
 gem 'devise'
@@ -22,7 +24,7 @@ gem 'font-awesome-sass'
 gem 'puma', '~> 3.11'
 gem 'httparty'
 gem 'chartkick'
-gem 'pg', '~>0.11'
+gem 'pg'
 gem 'sinatra', github: 'sinatra/sinatra'
 
 # gem 'execjs'
